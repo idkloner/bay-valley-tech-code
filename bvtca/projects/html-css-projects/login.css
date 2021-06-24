@@ -8,11 +8,11 @@ html,body {
     width: calc(100vw - 20px);
     height: calc(100vh - 20px);
     flex-direction: row;
-    /* row, row-reverse, column, and column-reverse */
+    
     justify-content:center;
-    /* flex-start, flex-end, center, space-around, and space-between */
+    
     align-items: center;
-    /* stretch, flex-start, flex-end, center*/
+    
 
     border-color: red;
     border-style: solid;
@@ -23,7 +23,11 @@ html,body {
     border-color: blue;
     border-width: 4px;
     border-style: solid;
+    border-radius:25px;
     padding: 1em;
     background-color:rgba(72, 54, 175, .5);
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     /* margin: 10px; */
 }
