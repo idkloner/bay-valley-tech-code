@@ -14,18 +14,22 @@ html,body {
     align-items: center;
     
 
-    border-color: red;
+    border-color:2a2b2e;
     border-style: solid;
     border-width: 10px;
 }
 .card {
+    min-width:200px;
+    min-height:300px;
+    width: calc(100vw - 500px);
+    height: calc(100vh - 500px);
     display: block;
-    border-color: blue;
+    border-color: rgba(164,194,168,50);
     border-width: 4px;
     border-style: solid;
     border-radius:25px;
     padding: 1em;
-    background-color:rgba(72, 54, 175, .5);
+    background-color:rgba(172, 235, 152, .5);
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
