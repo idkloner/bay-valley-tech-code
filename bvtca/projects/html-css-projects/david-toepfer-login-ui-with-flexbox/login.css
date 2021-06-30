@@ -23,10 +23,12 @@ html,body {
     min-height:300px;
     max-width:400px;
     max-height:400px;
-
+    
     width: calc(100vw - 500px);
     height: calc(100vh - 500px);
-    display: block;
+
+    display:block;
+
     border-color: rgba(164,194,168,50);
     border-width: 4px;
     border-style: solid;
@@ -36,5 +38,13 @@ html,body {
     -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-    /* margin: 10px; */
 }
+
+    form {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        max-width: 200px;
+
+    }
