@@ -28,6 +28,7 @@ html,body {
 
 .card{
     background-color: rgba(255, 255, 255, 0);
+    border:none;
 }
 
 #search{
@@ -37,4 +38,6 @@ html,body {
 #reply{
     width:90%;
     height:50%;
+    display:flex;
+    justify-content:flex-start;
 }
