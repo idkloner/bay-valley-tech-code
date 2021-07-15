@@ -1,16 +1,40 @@
 html,body {
-    background-color:tan
+    background-color:smokewhite;
 }
 
-.col-2 { 
-    border:  5px solid rgb(0, 0, 0);
+#menu { 
+
+    height: 100vh;
     display:flex;
-    justify-content:center;
-    align-items:center;
-    align-content:space-between;
+    justify-content:start;
+    align-self: space-between;
+    background-color:grey;
+   
 
 }
 
-.stuff {
-    margin: 5px;
+.stuff{
+    display:flex;
+    flex-direction: column;
+    align-content: space-evenly;
+    align-items:flex-start;
+    margin: 10px;
+ 
+}
+
+#email-list{
+    background-color: rgba(82, 72, 72, .3);
+}
+
+.card{
+    background-color: rgba(255, 255, 255, 0);
+}
+
+#search{
+   width:100%; 
+}
+
+#reply{
+    width:90%;
+    height:50%;
 }
