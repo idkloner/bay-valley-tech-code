@@ -76,3 +76,52 @@ html,body {
     width: 70%
 }
 
+
+.card:hover{
+  -webkit-box-shadow: 5px 5px 15px 5px #000000; 
+  box-shadow: 5px 5px 15px 5px #000000;
+  background-color: whitesmoke;
+}
+
+button {
+    background: transparent;
+    border: none;
+  }
+
+#search{
+    border:none;
+    width:90%;
+    padding-left: 30px;
+
+}
+
+.bi-eye{
+    background:transparent;
+    border:none;
+    display: inline-block;
+    position: absolute;
+    left: 25px;
+    top: 8%; 
+ 
+ 
+}
+.icon-input-btn{
+    display: inline-block;
+    position: relative;
+}
+
+.bi-paperclip{
+    background:transparent;
+    border:none;
+    display: inline-block;
+    position: relative;
+    right: 200%;
+    top: 400%; 
+ 
+ 
+}
+.icon-reply-btn{
+    display: inline-block;
+    position: relative;
+}
+
