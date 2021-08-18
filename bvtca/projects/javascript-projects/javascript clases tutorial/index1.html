@@ -1,0 +1,53 @@
+<body>
+    <h2 id = "title">Classes: The Basics</h2>
+
+    <script type="text/javascript">
+    /*
+
+        Class -> Obect
+
+        Instace Properties: what they have:
+            -name
+            -age 
+            -height
+
+
+        Instance Methods: what they do
+            -talk
+            -run
+            -jump
+    
+    */
+
+    class Rectangle {
+        // setup
+        constructor(_width, _height, _color) {  //used to set up the actual object
+
+            console.log("the rect is being created");
+
+
+            this.width = _width;             //this keyword refers to the current object.
+            this.height = _height;
+            this.color = _color;
+        }
+
+        getArea () {
+            return (this.width * this.height);
+
+        }
+
+        printDesc(){
+            console.log(`This rectangle is ${this.width} x ${this.height} and is ${this.color}`)
+        }
+    }
+     
+    let myRect1 = new Rectangle( 3, 5, "blue");
+    let myRect2 = new Rectangle( 10, 5, "red");
+
+
+    console.log(myRect1.getArea());
+    console.log(myRect2.getArea());
+
+    myRect2.printDesc();
+    </script>
+</body>

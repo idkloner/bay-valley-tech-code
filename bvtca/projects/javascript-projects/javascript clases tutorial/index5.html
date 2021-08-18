@@ -1,0 +1,35 @@
+<body>
+    <h2 id = "title">Classes: Polymorphism</h2>
+
+    <script type="text/javascript">
+   
+        class Animal {
+            constructor(name){
+                this.name = name;
+            }
+
+            makeSound(){
+                 console.log("generic animal sound");
+            }
+        }
+
+        class Dog extends Animal{
+            constructor(name) {
+                super(name);
+            }
+
+            makeSound(){  //polymorphism - redoing parent methoid
+                super.makeSound();
+                console.log("woof");
+            }
+        }
+        
+
+        const a1 = new Animal("Dom");
+        const a2 = new Dog("Jeff");
+
+        a1.makeSound();
+        a2.makeSound();
+
+    </script>
+</body>
