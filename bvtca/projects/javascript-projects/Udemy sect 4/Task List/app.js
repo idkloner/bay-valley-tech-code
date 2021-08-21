@@ -70,7 +70,7 @@ function addTask(e) {
     //add class
     link.className = 'delete-item secondary-content';
     //add icon html
-    link.innerHTML = `<i class = "fa fa-remove"></i>`;
+    link.innerHTML = `<i class="bi bi-x"></i>`;
     //append the link to 
     li.appendChild(link);
 
