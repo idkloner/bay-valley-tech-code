@@ -1,10 +1,9 @@
 //Define UI vars
-
-const form = document.querySelector(`#task-form`);
-const taskList = document.querySelector(`.collection`);
-const clearBtn = document.querySelector(`.clear-tasks`);
-const filter = document.querySelector(`#filter`);
-const taskInput = document.querySelector(`#task`);
+const form = document.querySelector('#task-form');
+const taskList = document.querySelector('.collection');
+const clearBtn = document.querySelector('.clear-tasks');
+const filter = document.querySelector('#filter');
+const taskInput = document.querySelector('#task');
 
 //Load all event Listeners
 loadEventListeners();
@@ -18,32 +17,33 @@ function loadEventListeners() {
     //remove task event
     taskList.addEventListener('click', removeTask);
     //clear task event
-    clearBtn.addEventListener('click', clearTasks)
+    clearBtn.addEventListener('click', clearTasks);
     //Filter tasks event
     filter.addEventListener('keyup', filterTasks);
 }
 
 //GEt Tasks from LS
-function getTasks(){
+function getTasks() {
     let tasks;
     if(localStorage.getItem('tasks') === null){
         tasks = [];
     } else {
     tasks = JSON.parse(localStorage.getItem('tasks'));
     }
-    tasks.forEach(function(task){
+
+tasks.forEach(function(task){
     //create li element
     const li = document.createElement('li');
     //add class
-    li.className = "collection-item";
+    li.className = 'collection-item';
     // Create text node and append to li
-    li.appendChild(document.createTextNode(taskInput.value));
+    li.appendChild(document.createTextNode(task));
     //create new link element
     const link = document.createElement('a');
     //add class
     link.className = 'delete-item secondary-content';
     //add icon html
-    link.innerHTML = `<i class = "fa fa-remove"></i>`;
+    link.innerHTML = '<i class="fa fa-remove"></i>';
     //append the link to 
     li.appendChild(link);
 
@@ -55,14 +55,14 @@ function getTasks(){
 
 //add task
 function addTask(e) {
-    if (taskInput.value === '') {
+    if(taskInput.value === '') {
         alert('Add a task');
     }
 
     //create li element
     const li = document.createElement('li');
     //add class
-    li.className = "collection-item";
+    li.className = 'collection-item';
     // Create text node and append to li
     li.appendChild(document.createTextNode(taskInput.value));
     //create new link element
@@ -70,8 +70,8 @@ function addTask(e) {
     //add class
     link.className = 'delete-item secondary-content';
     //add icon html
-    link.innerHTML = `<i class="bi bi-x"></i>`;
-    //append the link to 
+    link.innerHTML = '<i class="bi bi-x"></i>';
+    //append the link to li
     li.appendChild(link);
 
     //append li to ul
@@ -94,6 +94,9 @@ function storeTaskInLocalStorage(task) {
     } else {
         tasks = JSON.parse(localStorage.getItem('tasks'));
     }
+
+
+
     tasks.push(task);
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -103,7 +106,7 @@ function storeTaskInLocalStorage(task) {
 
 //Remove Task
 function removeTask(e) {
-    if (e.target.parentElement.classList.contains('delete-item')) {
+    if(e.target.parentElement.classList.contains('delete-item')) {
         if(confirm('Are you Sure?')){
         e.target.parentElement.parentElement.remove();
 
@@ -119,10 +122,10 @@ function removeTaskFromLocalStorage(taskItem) {
     if(localStorage.getItem('tasks') === null){
         tasks = [];
     } else {
-        tasks = JSON.parse(localStorage.getitem('tasks'));
+        tasks = JSON.parse(localStorage.getItem('tasks'));
     }
     tasks.forEach(function(task, index){
-        if(taskItem.texrContent === task){
+        if(taskItem.textContent === task){
             tasks.splice(index, 1);
         }
     });
@@ -150,7 +153,7 @@ function clearTasks(){
 function filterTasks(e) {
     const text = e.target.value.toLowerCase();
 
-    document.querySelectorAll(`.collection-item`).forEach
+    document.querySelectorAll('.collection-item').forEach
     (function(task){
         const item = task.firstChild.textContent;
         if(item.toLowerCase().indexOf(text) != -1){
