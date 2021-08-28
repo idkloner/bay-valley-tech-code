@@ -16,7 +16,7 @@
         <div class = "keys">
             <div data-key="65" class = "key">
                 <kbd>A</kbd>
-                <span class = "sound">clap</span>
+                <input placeholder = "Clap"><span class = "sound"></span></input>
             </div>
             <div data-key = "83" class = "key">
                 <kbd>S</kbd>
@@ -51,20 +51,33 @@
                 <span class = "sound">click</span>
             </div>
         </div>
+        
 
 
-        <audio data-key= "65" src = "sounds/01-clap.wav"></audio>
-        <audio data-key= "83" src = "sounds/02-hihat.wav"></audio>
-        <audio data-key= "68" src = "sounds/03-kick.wav"></audio>
-        <audio data-key= "70" src = "sounds/04-openhat.wav"></audio>
-        <audio data-key= "71" src = "sounds/05-boom.wav"></audio>
-        <audio data-key= "72" src = "sounds/06-snare.wav"></audio>
-        <audio data-key= "74" src = "sounds/07-snarerim.wav"></audio>
-        <audio data-key= "75" src = "sounds/08-shake.wav"></audio>
-        <audio data-key= "76" src = "sounds/09-click.wav"></audio>
+        <audio data-key= "65" src = srcA></audio>
+        <audio data-key= "83" src = srcS></audio>
+        <audio data-key= "68" src = srcD></audio>
+        <audio data-key= "70" src = srcF></audio>
+        <audio data-key= "71" src = srcG></audio>
+        <audio data-key= "72" src = srcH></audio>
+        <audio data-key= "74" src = srcJ></audio>
+        <audio data-key= "75" src = srcK></audio>
+        <audio data-key= "76" src = srcL></audio>
 
 
 <script>
+
+    var srcA = "sounds/01-clap.wav";
+    var srcS = "sounds/02-hihat.wav";
+    var srcD = "sounds/03-kick.wav";
+    var srcF = "sounds/04-openhat.wav";
+    var srcG = "sounds/05-boom.wav";
+    var srcH = "sounds/06-snare.wav";
+    var srcJ = "sounds/07-snarerim.wav";
+    var srcK = "sounds/08-shake.wav";
+    var srcL = "sounds/09-click.wav";
+
+
     function playSound(e) {
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
         const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
