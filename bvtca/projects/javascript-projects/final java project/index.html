@@ -20,49 +20,87 @@
             </div>
             <div data-key = "83" class = "key">
                 <kbd>S</kbd>
-                <span class = "sound">hihat</span>
+                <input placeholder = "hihat"><span class = "sound"></span></input>
             </div>
             <div data-key = "68" class = "key">
                 <kbd>D</kbd>
-                <span class = "sound">kick</span>
+                <input placeholder = "kick"><span class = "sound"></span></input>
             </div>
             <div data-key = "70" class = "key">
                 <kbd>F</kbd>
-                <span class = "sound">openhat</span>
+                <input placeholder = "openhat"><span class = "sound"></span></input>
             </div>
             <div data-key = "71" class = "key">
                 <kbd>G</kbd>
-                <span class = "sound">boom</span>
+                <input placeholder = "boom"><span class = "sound"></span></input>
             </div>
             <div data-key = "72" class = "key">
                 <kbd>H</kbd>
-                <span class = "sound">snare</span>
+                <input placeholder = "snare"><span class = "sound"></span></input>
             </div>
             <div data-key = "74" class = "key">
                 <kbd>J</kbd>
-                <span class = "sound">snare rim</span>
+                <input placeholder = "snare rim"><span class = "sound"></span></input>
             </div>
             <div data-key = "75" class = "key">
                 <kbd>K</kbd>
-                <span class = "sound">shake</span>
+                <input placeholder = "shake"><span class = "sound"></span></input>
             </div>
             <div data-key = "76" class = "key">
                 <kbd>L</kbd>
-                <span class = "sound">click</span>
+                <input placeholder = "click"><span class = "sound"></span></input>
             </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>  
+
+        <div class = "uploads">
+            <form action="/action_page.php">
+                <input type="file" id="myFileA" name="filename" accept= "audio/*">   
+            </form>
+            <form action="/action_page.php">
+                <input type="file" id="myFileS" name="filename" accept= "audio/*">  
+            </form>
+            <form action="/action_page.php">
+                <input type="file" id="myFileD" name="filename" accept= "audio/*">   
+            </form>
+            <form action="/action_page.php">
+                <input type="file" id="myFileF" name="filename" accept= "audio/*">  
+            </form>
+            <form action="/action_page.php">
+                <input type="file" id="myFileG" name="filename" accept= "audio/*"> 
+            </form>
+            <form action="/action_page.php">
+                <input type="file" id="myFileH" name="filename" accept= "audio/*">
+            </form>
+            <form action="/action_page.php">
+                <input type="file" id="myFileJ" name="filename" accept= "audio/*">
+            </form>
+            <form action="/action_page.php">
+                <input type="file" id="myFileK" name="filename" accept= "audio/*">
+            </form>
+            <form action="/action_page.php">
+                <input type="file" id="myFileL" name="filename" accept= "audio/*">
+            </form>
+            <!-- <div class = "row"><br><br><br><br>
+            <input/>
+                <audio id="audio" controls>
+                    <source src="" id="src"/>
+                </audio> -->
+            </div>    
+
         </div>
         
 
 
-        <audio data-key= "65" src = srcA></audio>
-        <audio data-key= "83" src = srcS></audio>
-        <audio data-key= "68" src = srcD></audio>
-        <audio data-key= "70" src = srcF></audio>
-        <audio data-key= "71" src = srcG></audio>
-        <audio data-key= "72" src = srcH></audio>
-        <audio data-key= "74" src = srcJ></audio>
-        <audio data-key= "75" src = srcK></audio>
-        <audio data-key= "76" src = srcL></audio>
+        <audio id = "keyA" data-key= "65" src = ""></audio>
+        <audio id = "keyS" data-key= "83" src = ""></audio>
+        <audio id = "keyD" data-key= "68" src = ""></audio>
+        <audio id = "keyF" data-key= "70" src = ""></audio>
+        <audio id = "keyG" data-key= "71" src = ""></audio>
+        <audio id = "keyH" data-key= "72" src = ""></audio>
+        <audio id = "keyJ" data-key= "74" src = ""></audio>
+        <audio id = "keyK" data-key= "75" src = ""></audio>
+        <audio id = "keyL" data-key= "76" src = ""></audio>
 
 
 <script>
@@ -77,6 +115,97 @@
     var srcK = "sounds/08-shake.wav";
     var srcL = "sounds/09-click.wav";
 
+    document.getElementById("keyA").src = srcA;
+    document.getElementById("keyS").src = srcS;
+    document.getElementById("keyD").src = srcD;
+    document.getElementById("keyF").src = srcF;
+    document.getElementById("keyG").src = srcG;
+    document.getElementById("keyH").src = srcH;
+    document.getElementById("keyJ").src = srcJ;
+    document.getElementById("keyK").src = srcK;
+    document.getElementById("keyL").src = srcL;
+    
+    function handleFilesA(event) {  //this code is in part from stackOverflow https://stackoverflow.com/questions/43710173/upload-and-play-audio-file-js
+        var files = event.target.files;
+        $("#src").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("keyA").src = URL.createObjectURL(files[0]);
+        //document.getElementById("audio").load();
+}
+    function handleFilesS(event) {  
+        var files = event.target.files;
+        $("#src").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("keyS").src = URL.createObjectURL(files[0]);
+        //document.getElementById("audio").load();
+}
+    function handleFilesD(event) {  
+        var files = event.target.files;
+        $("#src").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("keyD").src = URL.createObjectURL(files[0]);
+        //document.getElementById("audio").load();
+}
+    function handleFilesF(event) {  
+        $("#src").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("keyF").src = URL.createObjectURL(files[0]);
+        //document.getElementById("audio").load();
+}
+    function handleFilesG(event) {  
+        var files = event.target.files;
+        $("#src").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("keyG").src = URL.createObjectURL(files[0]);
+        //document.getElementById("audio").load();
+}
+    function handleFilesH(event) { 
+        var files = event.target.files;
+        $("#src").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("keyH").src = URL.createObjectURL(files[0]);
+        //document.getElementById("audio").load();
+}
+    function handleFilesJ(event) {  
+        var files = event.target.files;
+        $("#src").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("keyJ").src = URL.createObjectURL(files[0]);
+        //document.getElementById("audio").load();
+}
+    function handleFilesK(event) {  
+        var files = event.target.files;
+        $("#src").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("keyK").src = URL.createObjectURL(files[0]);
+        //document.getElementById("audio").load();
+}
+    function handleFilesL(event) {  
+        var files = event.target.files;
+        $("#src").attr("src", URL.createObjectURL(files[0]));
+        document.getElementById("keyL").src = URL.createObjectURL(files[0]);
+        //document.getElementById("audio").load();
+}
+
+
+document.getElementById("myFileA").addEventListener("change", handleFilesA, false);
+document.getElementById("myFileS").addEventListener("change", handleFilesS, false);
+document.getElementById("myFileD").addEventListener("change", handleFilesD, false);
+document.getElementById("myFileF").addEventListener("change", handleFilesF, false);
+document.getElementById("myFileG").addEventListener("change", handleFilesG, false);
+document.getElementById("myFileH").addEventListener("change", handleFilesH, false);
+document.getElementById("myFileJ").addEventListener("change", handleFilesJ, false);
+document.getElementById("myFileK").addEventListener("change", handleFilesK, false);
+document.getElementById("myFileL").addEventListener("change", handleFilesL, false);
+
+
+
+
+
+    // function getPath() {
+     
+    //  var inputName = document.getElementById('myFile');
+    //  var Path;
+
+    //  Path = inputName.value;
+    //  srcA = Path;
+     
+    //  alert(srcA);
+    //  document.getElementById("keyA").src = srcA;
+    
+    // }
 
     function playSound(e) {
         const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
@@ -85,6 +214,7 @@
         audio.currentTime = 0;  // rewind to start
         audio.play();
         key.classList.add('playing'); 
+        
     }
 
     
@@ -97,6 +227,10 @@
     const keys = document.querySelectorAll('.key');
     keys.forEach( key => key.addEventListener('transitionend', removeTransition));
     window.addEventListener('keydown', playSound);
+
+    
+
+
 </script>
     </body>
     </html>

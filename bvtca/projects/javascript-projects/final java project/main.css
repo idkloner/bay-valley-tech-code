@@ -7,6 +7,16 @@
     
 
 }
+input{
+    text-align: center;
+    color: #ffc600;
+    background-color: rgba(0,0,0,0);
+    border: none;
+
+}
+input::placeholder {
+    color: #ffc600;
+}
 
 
 .key{
@@ -38,4 +48,21 @@
     letter-spacing: 1pz;
     color:#ffc600;
 
+}
+
+
+.uploads {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 200px 0 0 0;
+    margin: none;
+    
+
+}
+
+
+.submit{
+    border-style: solid;
+    border-color: black;
 }
