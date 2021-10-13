@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "declaration": false,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "removeComments": true,
+        "target": "es6",
+        "outDir": "./dist",
+        "incremental": true,
+        "allowJs": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitReturns": false,
+//means your functions must return something
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+    },
+    "exclude": ["node_modules"],
+    "include": [
+        "src/typescript-practice.ts",
+        "./src/**/*"
+    ]
+}
