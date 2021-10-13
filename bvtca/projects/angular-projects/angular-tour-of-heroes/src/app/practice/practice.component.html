@@ -1,0 +1,10 @@
+<h2>My Places</h2>
+<ul class="places">
+  <li *ngFor="let place of places" (click)="onSelect(place)">
+    <span class="badge">{{place.id}}</span> {{place.birthplace}}
+  </li>
+</ul>
+
+ <div *ngIf="selectedPlace">
+  <h2>{{selectedPlace.place</h2>
+</div>   
