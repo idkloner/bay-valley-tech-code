@@ -1,0 +1,43 @@
+<label>Server Name</label>
+<!-- <input
+type = "text"
+class = "form control"
+(input) = "onUpdateServerName($event)">-->   <!--$event is a reserved word that gives us access to the event data -->
+<input
+type = "text"
+class = "form control"
+[(ngModel)] = "serverName"        
+>       <!-- ngModel uses two way binding to react to changes by user and hardcoded-->
+        <!--also allows the code to populate the text box with current server name on start up-->
+
+<!-- <p>{{serverName}}</p> -->
+<button 
+class ="btn btn-primary"
+[disabled] = "!allowNewServer"
+(click)="onCreateServer()">             <!-- Event binding, identified by ()-->
+Add Server</button>                     <!-- property binding -->
+
+<!-- <p>{{ allowNewServer }}</p>-->     <!--String Interpolation -->
+<!-- <p [innerText] = "allowNewServer"></p>-->  <!--Property binding Note: through the dom? -->
+
+
+<!-- <p>{{serverCreationStatus}}</p> -->
+
+<!--This below is an if else where else no server is tagged to ng-template theough #-->
+<!-- <p *ngIf = "serverCreated; else noServer">Server created, server is {{serverName}}</p>
+<ng-template #noServer>
+    <p>No Server was created</p>
+</ng-template> -->
+<p *ngIf = "serverCreated">Server created, server is {{serverName}}</p>
+
+<!-- <app-server></app-server>
+<app-server></app-server> -->
+
+<app-server *ngFor = "let server of servers"></app-server>    <!--server is a temp variable for loop and servers is name of property (array)-->
+
+<!-- If you want to output something by printing test use String interpolation -->
+<!-- If you want to change some property use property binding -->
+<!-- Do not mix the two as do not use string interpolation inside of property binding -->
+
+<!-- * lets the DOM know that the directive adds the element or doesnt add it-->
+<!--The Directive is only ngIf, can be a conditional, or a method-->

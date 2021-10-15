@@ -1,0 +1,5 @@
+<p [ngStyle] = "{backgroundColor : getColor()}"
+[ngClass] = "{online: serverStatus === 'online'}">   <!-- add class online only when serverstatus is online-->
+Server with ID {{ serverID }} is {{ getServerStatus() }}</p>
+<!--[] on ngStyle because we are binding to the data of a property of the directive -->
+<!-- needed for both ngStyle and Class-->
