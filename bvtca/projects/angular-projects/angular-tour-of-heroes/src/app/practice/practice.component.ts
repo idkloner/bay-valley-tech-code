@@ -11,7 +11,7 @@ import { PLACES } from '../practice-array';
   styleUrls: ['./practice.component.css']
 })
 export class PracticeComponent implements OnInit {
-  //places = PLACES;
+  places = PLACES;
 
   selectedPlace?: Places;
   onSelect(place: Places): void {
