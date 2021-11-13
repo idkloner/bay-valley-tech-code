@@ -1,0 +1,28 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { UsersComponent } from './login/users/users.component';
+import { MainPageComponent } from './main-page/main-page.component';
+import { HeaderComponent } from './main-page/header/header.component';
+import { JournalListComponent } from './main-page/journal-list/journal-list.component';
+import { JournalEntryComponent } from './main-page/journal-entry/journal-entry.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    UsersComponent,
+    MainPageComponent,
+    HeaderComponent,
+    JournalListComponent,
+    JournalEntryComponent
+  ],
+  imports: [
+    BrowserModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
