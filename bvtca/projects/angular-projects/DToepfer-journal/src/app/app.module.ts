@@ -8,6 +8,11 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { HeaderComponent } from './main-page/header/header.component';
 import { JournalListComponent } from './main-page/journal-list/journal-list.component';
 import { JournalEntryComponent } from './main-page/journal-entry/journal-entry.component';
+import { QuickNotesComponent } from './main-page/quick-notes/quick-notes.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSliderModule } from '@angular/material/slider';
+
+
 
 @NgModule({
   declarations: [
@@ -17,10 +22,19 @@ import { JournalEntryComponent } from './main-page/journal-entry/journal-entry.c
     MainPageComponent,
     HeaderComponent,
     JournalListComponent,
-    JournalEntryComponent
+    JournalEntryComponent,
+    QuickNotesComponent,
+    
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BrowserAnimationsModule,
+    MatSliderModule,
+    
+  ],
+
+  exports:[
+    MatSliderModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
