@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./journal-entry.component.css']
 })
 export class JournalEntryComponent implements OnInit {
+  
 
   constructor() { }
 
