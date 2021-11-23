@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
+  
+  loadedFeature = "journalCancel";
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onNavigate(feature:string){
+    this.loadedFeature = feature;
+    console.log(feature);
   }
 
 }

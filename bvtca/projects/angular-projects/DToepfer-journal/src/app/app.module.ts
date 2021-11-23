@@ -13,10 +13,11 @@ import { QuickNotesComponent } from './main-page/quick-notes/quick-notes.compone
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-import {MatListModule} from '@angular/material/list';
-import {MatIconModule} from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 import { JournalItemComponent } from './main-page/journal-list/journal-item/journal-item.component';
-
+import  {MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input'
 
 
 @NgModule({
@@ -40,6 +41,8 @@ import { JournalItemComponent } from './main-page/journal-list/journal-item/jour
     MatDividerModule,
     MatListModule,
     MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
     
   ],
 

@@ -1,2 +1,5 @@
-<app-header></app-header>
-<app-journal-list></app-journal-list>
+<app-header (journalBool) = "onNavigate($event)"></app-header>
+<app-journal-list *ngIf  = "loadedFeature !== 'journalEntry'"></app-journal-list>
+<app-journal-entry (journalBool) = "onNavigate($event)" *ngIf  = "loadedFeature === 'journalEntry'"></app-journal-entry>
+
+

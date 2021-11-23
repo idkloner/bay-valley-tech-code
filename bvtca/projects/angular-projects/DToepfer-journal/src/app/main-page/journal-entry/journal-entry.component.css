@@ -1,0 +1,16 @@
+.container{
+    
+    border-color: black;
+    border-style: double;
+   
+    
+}
+
+.journal-input{
+    display: flex;
+    width: 80vw;
+    min-height: 400px;
+    
+}
+
+

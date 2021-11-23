@@ -14,7 +14,7 @@ export class JournalListComponent implements OnInit {
     new Journal("12-24-2021", 'A few minutes ago not so far away...'),
   ];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
   }
