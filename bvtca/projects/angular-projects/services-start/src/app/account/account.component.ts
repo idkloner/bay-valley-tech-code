@@ -1,4 +1,5 @@
-import { Component,  Input,} from '@angular/core';
+import { Component,  } from '@angular/core';
+import {Input}
 import { AccountService } from '../account.sercive';
 import { LoggingService } from '../logging.service';
 @Component({
