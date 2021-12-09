@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+=======
+import { ActivatedRoute, Params } from '@angular/router';
+>>>>>>> 157ac8798e0a5b5003fa441d369567751bb80711
 
 import { ServersService } from '../servers.service';
 import { CanComponentDeactivate } from './can-deactivate-guard.service';
@@ -15,11 +19,17 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
   serverName = '';
   serverStatus = '';
   allowEdit = false;
+<<<<<<< HEAD
   changesSaved = false;
 
   constructor(private serversService: ServersService,
     private route: ActivatedRoute,
     private router: Router) { }
+=======
+
+  constructor(private serversService: ServersService,
+    private route: ActivatedRoute) { }
+>>>>>>> 157ac8798e0a5b5003fa441d369567751bb80711
 
   ngOnInit() {
     console.log(this.route.snapshot.queryParams);
@@ -31,9 +41,13 @@ export class EditServerComponent implements OnInit, CanComponentDeactivate {
       }
     );
     this.route.fragment.subscribe();
+<<<<<<< HEAD
     const id = +this.route.snapshot.params['id'];
     //this.route.snapshot.params.subscribe();
     this.server = this.serversService.getServer(id);
+=======
+    this.server = this.serversService.getServer(1);
+>>>>>>> 157ac8798e0a5b5003fa441d369567751bb80711
     this.serverName = this.server.name;
     this.serverStatus = this.server.status;
   }
