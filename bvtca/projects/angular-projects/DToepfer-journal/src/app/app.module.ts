@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { JournalItemComponent } from './main-page/journal-list/journal-item/journal-item.component';
 import  {MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { MatInputModule } from '@angular/material/input'
     MatListModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule,
+    MatInputModule, 
+    AppRoutingModule 
     
   ],
 
