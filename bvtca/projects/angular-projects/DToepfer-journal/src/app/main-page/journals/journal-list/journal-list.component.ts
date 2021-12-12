@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { JournalService } from 'src/app/journal.service';
+import { JournalService } from 'src/app/main-page/journals/journal.service';
 import { journals } from 'src/app/mock.journal';
 
 @Component({

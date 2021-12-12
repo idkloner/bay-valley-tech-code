@@ -19,7 +19,7 @@ import { JournalItemComponent } from './main-page/journals/journal-list/journal-
 import  {MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
 import { AppRoutingModule } from './app-routing.module';
-import { JournalDetailComponent } from './journals/journal-detail/journal-detail.component';
+import { JournalDetailComponent } from './main-page/journals/journal-detail/journal-detail.component';
 
 
 

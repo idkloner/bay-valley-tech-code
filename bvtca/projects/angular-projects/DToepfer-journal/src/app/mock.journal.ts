@@ -1,4 +1,4 @@
-import { Journal } from 'src/app/main-page/journals/journal-list/journal.model';
+import { Journal } from 'src/app/main-page/journals/journal.model';
 
 export const journals: Journal[] = [
     {date: "12-17-2021", entry: 'A Long Time ago In a galaxy far far away...'},
