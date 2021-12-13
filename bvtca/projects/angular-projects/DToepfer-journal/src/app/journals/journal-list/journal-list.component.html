@@ -1,12 +1,10 @@
-
-   
 <div class = "container">
-    <div class = "row entry-list" *ngFor = "let journalEntry of journals">
+    <div class = "row entry-list" >  <!--*ngFor = "let journalEntry of journals"-->
        <div class="col-1">
            <mat-icon>circle</mat-icon>
        </div>
        <div class="col-6">
-           <mat-list-item>{{ journalEntry.date }}: {{ journalEntry.entry }} </mat-list-item>
+           <!-- <mat-list-item>{{ journalEntry.date }}: {{ journalEntry.entry }} </mat-list-item> -->
        </div>
        <div class="col-2">
            <button mat-raised-button color = "accent" >Edit</button>
