@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  
+  // onNewJournal(){
+  //   this.router.navigate(['new'], {relativeTo: this.route});
+  // }
 
 }
