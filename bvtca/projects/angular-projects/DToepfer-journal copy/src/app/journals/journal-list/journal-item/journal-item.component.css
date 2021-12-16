@@ -1,0 +1,22 @@
+.row{
+    /* border-style:groove;
+    border-color:black;
+    border-width:5px;
+    margin: 15px;
+    padding: 20px; */
+    display: flex;
+    align-items: center;
+}
+.mat-raised-button{
+    width: 20px;
+}
+
+.mat-list-item{
+    width: 100px;
+    font-size: 20px;
+    
+}
+
+.mat-divider{
+    margin: 20px;
+}
