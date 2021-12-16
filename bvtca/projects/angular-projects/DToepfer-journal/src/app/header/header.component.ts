@@ -1,4 +1,6 @@
 import { Component, OnInit} from '@angular/core';
+import { ActivatedRoute, Router} from '@angular/router';
+import { JournalService } from '../journals/journal.service';
 
 
 @Component({
@@ -10,13 +12,15 @@ export class HeaderComponent implements OnInit {
 
   
 
-  constructor() { }
+  constructor(private journalService: JournalService,
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
 
-  // onNewJournal(){
-  //   this.router.navigate(['new'], {relativeTo: this.route});
-  // }
+    onNewJournal(){
+      this.router.navigate(['new'], {relativeTo: this.route});
+    }
 
 }

@@ -1,5 +1,3 @@
-
-   
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 
@@ -10,20 +8,20 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./journal-edit.component.css']
 })
 export class JournalEditComponent implements OnInit {
-  // id: number;
-  // editMode = false;
+   id!: number;
+   editMode = false;
   
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // this.route.params
-    // .subscribe(
-    //   (params: Params) => {
-    //     this.id = + params['id'];
-    //     this.editMode = params['id'] != null;  
-    //   }
-    // )
+     this.route.params
+     .subscribe(
+       (params: Params) => {
+         this.id = + params['id'];
+         this.editMode = params['id'] != null;  
+       }
+     )
   }
  
 

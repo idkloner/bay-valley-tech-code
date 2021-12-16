@@ -6,20 +6,20 @@ import { JournalService } from './journal.service';
   selector: 'app-journals',
   templateUrl: './journals.component.html',
   styleUrls: ['./journals.component.css'],
-  providers: [JournalService]
+  providers: []
 })
-export class JournalsComponent  { //implements OnInit
-  //selectedJournal: Journal;
+export class JournalsComponent implements OnInit{ 
+  selectedJournal!: Journal;
 
-  constructor() { }
+  constructor(private journalService: JournalService) { }
 
-  // ngOnInit(){
-  //   this.journalService.recipeSelected
-  //     .subscribe(
-  //       (journal: Journal) => {
-  //         this.selectedJournal = journal;
-  //       }
-  //     );
-  // }
+  ngOnInit(){
+    this.journalService.journalSelected
+      .subscribe(
+        (journal: Journal) => {
+          this.selectedJournal = journal;
+          }
+      );
+  } 
 
 }

@@ -15,11 +15,12 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { JournalItemComponent } from './journals/journal-list/journal-item/journal-item.component';
-import  {MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
 import { AppRoutingModule } from './app-routing.module';
 import { JournalDetailComponent } from './journals/journal-detail/journal-detail.component';
 import { JournalsComponent } from './journals/journals.component';
+import { JournalService } from './journals/journal.service';
 
 
 
@@ -48,13 +49,12 @@ import { JournalsComponent } from './journals/journals.component';
     MatFormFieldModule,
     MatInputModule, 
     AppRoutingModule 
-    
   ],
 
   exports:[
     
   ],
-  providers: [],
+  providers: [JournalService],
   bootstrap: [AppComponent],
 
   
