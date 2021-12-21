@@ -1,14 +1,21 @@
+<div class="container">
+<div class = "row">
+    <div class = "col-xs-12">
+        <h1> {{ journal.date }}</h1>    
+<div class = row>
+    <p>{{ journal.entry }}</p>
+</div>
+<div class = "btn-group">
+    <div class="col-5">
+        <button mat-raised-button color = "accent" (click) = "onEditJournal()">Edit</button>
+      </div>
+      <div class="col-5">
+        <button mat-raised-button color = "warn">Delete</button>
+      </div> 
+</div>
+</div>
+</div>
+</div>
 
-<div class="col-1">
-    <mat-icon>circle</mat-icon>
-</div>
-<div class="col-6">
-     <mat-list-item>{{ journal.date }}: {{ journal.entry }} </mat-list-item> 
-</div>
-<div class="col-2">
-    <button mat-raised-button color = "accent" >Edit</button>
-</div>
-<div class="col-2">
-    <button mat-raised-button color = "warn">Delete</button>
-</div>
-<mat-divider></mat-divider>
+
+

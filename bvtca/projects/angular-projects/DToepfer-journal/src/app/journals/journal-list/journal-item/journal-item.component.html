@@ -1,14 +1,19 @@
-
-<div class="col-1">
-  <mat-icon>circle</mat-icon>
-</div>
-<div class="col-6">
-   <mat-list-item>{{ journal.date }}: {{ journal.entry }} </mat-list-item> 
-</div>
-<div class="col-2">
+<div class="container">
+  <a
+    style = "cursor:pointer"
+    [routerLink] = "[index]"
+    class="list-group-item clearfix">
+    <div class = "row entry-list">
+          <mat-icon class = "col-1">circle</mat-icon>
+            <mat-list-item class = "col-11">{{ journal.date }}: {{ journal.entry }} </mat-list-item> 
+<!-- <div class="col-2">
   <button mat-raised-button color = "accent" >Edit</button>
 </div>
 <div class="col-2">
   <button mat-raised-button color = "warn">Delete</button>
+</div> -->
+      <mat-divider></mat-divider>
+  
+    </div>
+  </a>
 </div>
-<mat-divider></mat-divider>

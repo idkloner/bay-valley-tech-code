@@ -1,0 +1,13 @@
+.btn{
+    margin: 10px;
+}
+
+.mat-raised-button{
+    width: 20px;
+    margin: 20px;
+}
+
+.container{
+    border: solid;
+    border-color: balck;
+}

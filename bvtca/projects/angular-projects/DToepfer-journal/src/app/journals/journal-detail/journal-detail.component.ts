@@ -28,6 +28,7 @@ export class JournalDetailComponent implements OnInit {
 
   onEditJournal() {
     this.router.navigate(['edit'], {relativeTo: this.route});
+    
     //this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});   //This could work as well, just more complicated.
     
   }

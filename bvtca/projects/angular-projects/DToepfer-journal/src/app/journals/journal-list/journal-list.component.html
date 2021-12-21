@@ -1,10 +1,14 @@
 <div class = "container">
-    <div class = "row entry-list"*ngFor = "let journalEl of journals" >  
-        <div class="row">
-            <div class="col-xs-12">
-              <app-journal-item
-                *ngFor="let journalEl of journals; let i = index"
-                [journal]="journalEl"
-                [index] = "i"></app-journal-item>
-   </div>
+  <div class = "row entry-list">  
+    <div class="row">
+      <div class="col-xs-12">
+          <app-journal-item
+            *ngFor="let journalEl of journals; let i = index"
+            [journal]="journalEl"
+            [index] = "i">
+          </app-journal-item>
+      </div>
+    </div>
+  </div>
 </div>
+
