@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit {
   }
 
     onNewJournal(){
-      this.router.navigate(['new'], {relativeTo: this.route});
+      this.router.navigate(['journal/new']);
+      
     }
 
 }

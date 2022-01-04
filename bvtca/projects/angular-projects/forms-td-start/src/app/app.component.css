@@ -1,3 +1,14 @@
 .container {
   margin-top: 30px;
 }
+
+/*without input the entire 
+form will also be encased in red.
+can also say select.ng-invalid.
+ng-touched is only added after the user
+interacts with the onject making it not
+appear red right away
+*/
+ input.ng-invalid.ng-touched{  
+  border: 1px solid red;
+} 
