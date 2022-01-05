@@ -1,9 +1,7 @@
 .container{
     
     border-color: black;
-    border-style: double;
-   
-    
+    border-style: double;   
 }
 
 .journal-input{
@@ -12,3 +10,12 @@
     min-height: 400px;
     
 }
+
+.button{
+    margin: 10px;
+}
+
+.input-field{
+    margin: 10px;
+}
+

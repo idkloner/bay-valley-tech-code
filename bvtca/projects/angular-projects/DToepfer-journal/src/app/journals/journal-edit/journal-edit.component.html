@@ -1,18 +1,14 @@
 <div class="container">
     <div class="row">
-        <div>
-            <mat-form-field  appearance="fill" >
+            <mat-form-field  appearance="fill" class = "input-field">
                 <mat-label>Add Entry</mat-label>
                 <textarea matInput placeholder="Journal Entry" class="journal-input"></textarea>
             </mat-form-field>
+        <div class = "row">
+            <div>
+                <button type = "button" class = "button" mat-raised-button color="primary">Save</button>                                                            
+                <button type = "button" class = "button" mat-raised-button color="warn" routerLink = "/"> Cancel</button>
+            </div>
         </div>
-        <div class="col-10"></div>
-        <div class="col-1">
-            <button type = "button" class = "button" mat-raised-button color="primary">Save</button>
-        </div>
-        <div class="col-1">                                                             
-            <button type = "button" class = "button" mat-raised-button color="warn" routerLink = "/"> Cancel</button>
-        </div>
-        
     </div>
 </div>
