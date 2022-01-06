@@ -2,7 +2,10 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form (ngSubmit) = "onSubmit()" #f = "ngForm"> <!--like click listener but ngSubmit is buit in html, ngFrom is requesting acces to the jvascript form created by angular which will contain the values inputed in from user input due to name attribute -->
-        <div id="user-data">
+        <div 
+          id="user-data" 
+          ngModelGroup="userData"
+          #userData="ngModelGroup">
           <div class="form-group">
             <label for="username">Username</label>
             <input 
@@ -13,7 +16,8 @@
             name = "username"
             required> <!-- ng model registers controls in js name is default attribute to html control-->
           </div>
-          <button class="btn btn-default" type="button">Suggest an Username</button>
+          <button class="btn btn-default" type="button"
+          (click) = "suggestUserName()">Suggest an Username</button>
           <div class="form-group">
             <label for="email">Mail</label>
             <input 
@@ -23,28 +27,61 @@
             ngModel
             name = "email"
             required
-            email> <!--required and email are built in directives by angular not html, required is treated as a selector-->
-            <span class = "help-block">Please show valid email</span>
+            email
+            #email="ngModel"> <!--required and email are built in directives by angular not html, required is treated as a selector-->
+            <span class = "help-block" *ngIf = "!email.valid && email.touched">Please show valid email</span>
           </div>
         </div>
+        <p *ngIf="!userData.valid && userData.touched == true">user Data is invalid</p>
         <div class="form-group">
           <label for="secret">Secret Questions</label>
           <select 
           id="secret" 
           class="form-control"
-          ngModel
+          [ngModel]="defaultQuestion"
           name = "secret">
             <option value="pet">Your first Pet?</option>
             <option value="teacher">Your first teacher?</option>
           </select>
         </div>
+        <div class="form-froup">
+          <textarea 
+          name="questionAnswer" 
+          rows="3"
+          class = "form-control"
+          [(ngModel)] = "answer"> <!--ngModel allows us access to the users reply with 2 way binding-->
+        </textarea>
+        </div>
+        <p>Your reply: {{ answer }}</p>
+        <div class = "radio" *ngFor = "let gender of genders">
+          <label>
+            <input 
+            type="radio"
+            name = "gender"
+            ngModel
+            [value] = "gender"
+            required>
+            {{ gender }}
+          </label>
+        </div>
         <button 
         class="btn btn-primary" 
         type="submit"
-        [disabled]="!f.valid"
-        >
+        [disabled]="!f.valid">
         Submit</button>
       </form>
+  
+    </div>
+  </div>
+  <hr>
+  <div class="row" *ngIf = "submitted">
+    <div class="col-xs-12">
+      <h3>Your date</h3>
+      <p> username: {{ user.username }}</p>
+      <p> email: {{ user.email }}</p>
+      <p> secret: Your first {{ user.secretQuestion  }}</p>
+      <p> secret answer: {{ user.answer }}</p>
+      <p> gender: {{ user.gender }}</p>
     </div>
   </div>
 </div>
