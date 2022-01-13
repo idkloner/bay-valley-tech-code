@@ -26,6 +26,7 @@ onSubmit(){
   this.user.email = this.signupForm.value.userData.email;
   this.user.subscription = this.signupForm.value.subscription;
   this.user.password = this.signupForm.value.password;
+  console.log(this.user.email, this.user.subscription, this.user.password)
 }
 
 }
