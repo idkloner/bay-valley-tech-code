@@ -2,20 +2,13 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <form [formGroup] = "projectForm" (ngSubmit)="onSubmit()">
-        <div formGroupName = "userData">
           <div class = "form-group">
-            <label for = "project-name">Project Name</label>
+            <label for = "name">Project Name</label>
             <input
             type = "text"
             id = "name"
             formControlName = "name"
             class = "form-control">
-            <span
-            *ngIf="!projectForm.get('userData.name').valid && projectForm.get('userData.name').touched"
-              class = "help-block">
-              <span *ngIf = "projectForm.get('userData.name').errors['nameIsForbidden']">This name is invalid</span>
-              <span *ngIf = "projectForm.get('userData.name').errors['required']">This field is required</span>
-              </span>
           </div>
           <div class = "form-group">
             <label for = "email">email</label>
@@ -24,32 +17,23 @@
             id = "email"
             formControlName = "email"
             class = "form-control">
-            <span 
-              *ngIf = "!projectForm.get('userData.email').valid && projectForm.get('userData.email').touched"
-              class = "help-block">Please enter proper email</span>
           </div>
-      </div>
           <div class = "form-group">
             <label for = "status">Project Status</label>
             <select
               id = "status"
               class = "form-control"
-              [ngModel] = "defaultStatus"
+              formControlName="status"
               name = "status">
                 <option value = "stable">Stable</option>
                 <option value = "critical">Critical</option>
-                <option value = "Finished">Finished</option>
-              </select>
-          </div>
-        <span
-            *ngIf="signupForm.invalid && signupForm.touched"
-            class = "help-block">Please enter proper data</span>           
+                <option value = "finished">Finished</option>
+        </select>
+        </div>           
         <button
         class = "btn btn-primary"
         type = "submit"
-        [disabled] = "!projectForm.valid"
         >Submit</button>
-
       </form>
       <!--
           Create a Form with the following Controls and Validators
