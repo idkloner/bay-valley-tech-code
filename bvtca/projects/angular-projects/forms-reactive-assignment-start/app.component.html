@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup] = "signupForm" (ngSubmit)="onSubmit()">  <!--form group says to use the form group I defined no other-->
+        <div formGroupName = "userData">
+          <div class = "form-group">
+            <label for = "username">Username</label>
+            <input
+            type = "text"
+            id = "username"
+            formControlName = "username"
+            class = "form-control">
+            <span
+            *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+              class = "help-block">
+              <span *ngIf = "signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid</span>
+              <span *ngIf = "signupForm.get('userData.username').errors['required']">This field is required</span>
+              </span>
+          </div>
+          <div class = "form-group">
+            <label for = "email">email</label>
+            <input
+            type = "text"
+            id = "email"
+            formControlName = "email"
+            class = "form-control">
+            <span 
+              *ngIf = "!signupForm.get('userData.email').valid && signupForm.get('userData.email').touched"
+              class = "help-block">Please enter proper email</span>
+          </div>
+      </div>
+        <span
+            *ngIf="signupForm.invalid && signupForm.touched"
+            class = "help-block">Please enter proper data</span>
+        <button
+        class = "btn btn-primary"
+        type = "submit"
+        [disabled] = "!signupForm.valid"
+        >Submit</button>
+        
+      </form>
+    </div>
+  </div>
+</div>
