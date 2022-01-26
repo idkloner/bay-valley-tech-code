@@ -1,14 +1,35 @@
 <div class="container">
     <div class="row">
-            <mat-form-field  appearance="fill" class = "input-field">
-                <mat-label>Add Entry</mat-label>
-                <textarea matInput placeholder="Journal Entry" class="journal-input"></textarea>
-            </mat-form-field>
+        <form [formGroup] = "journalForm" (ngSubmit) = "onSubmit()" >
+            <div class = "formGroup">
+                 <mat-form-field  appearance="fill" class = "input-field">
+                    <mat-label for = "entry">Add Entry</mat-label>
+                    <textarea 
+                    matInput placeholder="Journal Entry" 
+                    type = "text"
+                    id = "entry"
+                    class="journal-input form-control"
+                    formControlName = "entry"
+                    ></textarea>
+                 </mat-form-field>
+            </div>
         <div class = "row">
             <div>
-                <button type = "button" class = "button" mat-raised-button color="primary">Save</button>                                                            
-                <button type = "button" class = "button" mat-raised-button color="warn" routerLink = "/"> Cancel</button>
+                <button 
+                    type = "submit" 
+                    class = "button" 
+                    mat-raised-button color="primary"
+                    > Save
+                </button>                                                           
+                <button 
+                    type = "button" 
+                    class = "button" 
+                    mat-raised-button 
+                    color="warn" 
+                    routerLink = "/"> Cancel
+                </button>
             </div>
         </div>
+        </form>
     </div>
 </div>

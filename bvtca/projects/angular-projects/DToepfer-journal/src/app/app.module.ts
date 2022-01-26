@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { JournalDetailComponent } from './journals/journal-detail/journal-detail.component';
 import { JournalsComponent } from './journals/journals.component';
 import { JournalService } from './journals/journal.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -48,7 +49,9 @@ import { JournalService } from './journals/journal.service';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule, 
-    AppRoutingModule 
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
 
   exports:[
