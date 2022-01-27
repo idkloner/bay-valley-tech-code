@@ -1,10 +1,12 @@
 
 import { EventEmitter, Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Journal } from 'src/app/journals/journal.model'
 import { journals } from 'src/app/mock.journal'
 
 @Injectable()
 export class JournalService {
+  journalsChanged = new Subject<Journal[]>();
   journalSelected = new EventEmitter<Journal>();
 
   private journals: Journal[] = [
@@ -32,6 +34,23 @@ export class JournalService {
   getJournal(id: number){
     return this.journals[id];
   }
+
+  deleteJournal(index:number){
+    this.journals.splice(index, 1);
+    this.journalsChanged.next(this.journals.slice());
+    console.log(this.journalsChanged);
+  }
+
+  addJournal(journal: Journal) {
+    this.journals.push(journal);
+    this.journalsChanged.next(this.journals.slice());
+  }
+
+  updateJournal( index: number, newJournal: Journal) {
+    this.journals[index] = newJournal;
+    this.journalsChanged.next(this.journals.slice());
+  }
+
 
   
 }

@@ -11,6 +11,7 @@ import { JournalService } from '../journal.service';
 export class JournalDetailComponent implements OnInit {
   journal!: Journal;
   id!: number;
+  editedItemIndex!: number;
 
   constructor(private journalService: JournalService,
               private route: ActivatedRoute,
@@ -20,7 +21,9 @@ export class JournalDetailComponent implements OnInit {
       this.route.params
         .subscribe(
           (params: Params) => {
-            this.id = +params['id'];
+            this.id = + params['id'];
+            this.editedItemIndex = this.id;
+            
             this.journal = this.journalService.getJournal(this.id);
         }
       );
@@ -30,6 +33,12 @@ export class JournalDetailComponent implements OnInit {
     this.router.navigate(['edit'], {relativeTo: this.route});
     
     //this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});   //This could work as well, just more complicated.
+    
+  }
+  onDelete(){
+    this.journalService.deleteJournal(this.editedItemIndex);
+    console.log(this.editedItemIndex);
+
     
   }
 

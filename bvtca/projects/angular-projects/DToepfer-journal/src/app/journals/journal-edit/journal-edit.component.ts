@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, NgForm } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Journal } from '../journal.model';
 import { JournalService } from '../journal.service';
@@ -14,7 +14,10 @@ export class JournalEditComponent implements OnInit {
   journal!: Journal; 
   id!: number;
   editMode = false;
+  editedItemIndex!: number;
   journalForm!: FormGroup;
+ 
+  
   
 
   constructor(private journalService: JournalService,
@@ -24,14 +27,13 @@ export class JournalEditComponent implements OnInit {
      this.route.params
      .subscribe(
        (params: Params) => {
-         this.id = + params['id'];
-         this.journal = this.journalService.getJournal(this.id);
-         
-
-         if(this.id != null){  //need to do something with this, maybe
-         this.editMode = true;  
-         this.initForm();
+        this.id = + params['id'];
+        this.editedItemIndex = this.id;
+        this.journal = this.journalService.getJournal(this.id);
+        if(this.id != null){  
+          this.editMode = true;  
          }
+         this.initForm();
          
        }
      );
@@ -40,6 +42,15 @@ export class JournalEditComponent implements OnInit {
   onSubmit(){
     console.log(this.editMode);
     console.log(this.journalForm);
+    // const value = form.value;
+    // const newJournal = new Journal(value.name, value.amount);
+    // if (this.editMode){
+    //   this.journalService.updateJournal(this.editedItemIndex, newJournal)
+    // } else {
+    //   this.journalService.addJournal(newJournal);
+    // }
+    // this.editMode = false;
+    // form.reset();
     
 
   }
@@ -70,5 +81,10 @@ export class JournalEditComponent implements OnInit {
             let output = month + '/' + day + '/' + year;
             return output;
   }  //this code is from geeks for geeks https://www.geeksforgeeks.org/how-to-get-the-current-date-in-javascript/
+
+
+  
+
+  
 
 }
