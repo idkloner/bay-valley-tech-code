@@ -22,6 +22,7 @@ import { JournalDetailComponent } from './journals/journal-detail/journal-detail
 import { JournalsComponent } from './journals/journals.component';
 import { JournalService } from './journals/journal.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ShortenPipe } from '../shorten.pipe';
 
 
 
@@ -36,6 +37,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     JournalItemComponent,
     JournalDetailComponent,
     JournalsComponent,
+    ShortenPipe
 
     
     

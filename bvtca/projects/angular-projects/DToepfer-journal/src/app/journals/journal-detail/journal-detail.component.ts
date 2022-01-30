@@ -35,9 +35,10 @@ export class JournalDetailComponent implements OnInit {
     //this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});   //This could work as well, just more complicated.
     
   }
-  onDelete(){
+  onDeleteJournal(){
     this.journalService.deleteJournal(this.editedItemIndex);
-    console.log(this.editedItemIndex);
+    this.router.navigate(['journal']);
+   
 
     
   }

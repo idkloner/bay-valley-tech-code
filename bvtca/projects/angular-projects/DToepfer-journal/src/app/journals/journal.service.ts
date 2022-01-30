@@ -12,16 +12,16 @@ export class JournalService {
   private journals: Journal[] = [
     new Journal(
       "12-17-2021", 
-      "A Long Time ago In a galaxy far far away..."),
+      "A Long Time ago In a galaxy far far away Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
     new Journal(
       "12-18-2021", 
-      "A Really Long Time ago In a galaxy really really far far away..."),
+      "A Really Long Time ago In a galaxy really really far far away Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
     new Journal(
       "12-19-2021", 
-      "A short Time ago In a galaxy pretty close to here..."),
+      "A short Time ago In a galaxy pretty close to here Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
     new Journal(
       "12-20-2021", 
-      "A few minutes ago not so far away..."),
+      "A few minutes ago not so far away Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."),
 
   ];
 
@@ -38,7 +38,7 @@ export class JournalService {
   deleteJournal(index:number){
     this.journals.splice(index, 1);
     this.journalsChanged.next(this.journals.slice());
-    console.log(this.journalsChanged);
+    
   }
 
   addJournal(journal: Journal) {
@@ -50,6 +50,8 @@ export class JournalService {
     this.journals[index] = newJournal;
     this.journalsChanged.next(this.journals.slice());
   }
+
+ 
 
 
   

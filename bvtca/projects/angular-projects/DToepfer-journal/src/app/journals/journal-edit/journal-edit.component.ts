@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { FormGroup, FormControl, NgForm } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { FormGroup, FormControl, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Journal } from '../journal.model';
 import { JournalService } from '../journal.service';
 
@@ -11,25 +11,24 @@ import { JournalService } from '../journal.service';
   styleUrls: ['./journal-edit.component.css']
 })
 export class JournalEditComponent implements OnInit {
-  journal!: Journal; 
+  //journal!: Journal; 
   id!: number;
   editMode = false;
   editedItemIndex!: number;
   journalForm!: FormGroup;
+  
  
-  
-  
-
   constructor(private journalService: JournalService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
      this.route.params
      .subscribe(
        (params: Params) => {
         this.id = + params['id'];
-        this.editedItemIndex = this.id;
-        this.journal = this.journalService.getJournal(this.id);
+        //this.editedItemIndex = this.id;
+        //this.journal = this.journalService.getJournal(this.id);
         if(this.id != null){  
           this.editMode = true;  
          }
@@ -40,19 +39,21 @@ export class JournalEditComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log(this.editMode);
+
+    if( this.editMode){
+      this.journalService.updateJournal(this.id, this.journalForm.value);
+    } else {
+      this.journalService.addJournal(this.journalForm.value);    
+    }
     console.log(this.journalForm);
-    // const value = form.value;
-    // const newJournal = new Journal(value.name, value.amount);
-    // if (this.editMode){
-    //   this.journalService.updateJournal(this.editedItemIndex, newJournal)
-    // } else {
-    //   this.journalService.addJournal(newJournal);
-    // }
-    // this.editMode = false;
-    // form.reset();
+    this.journalForm.reset();
+    this.onCancel();
     
 
+  }
+
+  onCancel(){
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   private initForm(){
@@ -66,8 +67,8 @@ export class JournalEditComponent implements OnInit {
     }
 
     this.journalForm = new FormGroup({
-      'entry': new FormControl(journalEntry),
-      'date': new FormControl(journalDate)
+      'entry': new FormControl(journalEntry, Validators.required),
+      'date': new FormControl(journalDate, Validators.required)
     })
   }
  

@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Params, Router} from '@angular/router';
+import { Journal } from '../journals/journal.model';
 import { JournalService } from '../journals/journal.service';
 
 
@@ -9,7 +10,8 @@ import { JournalService } from '../journals/journal.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  journal!: Journal;
+  id!: number;
   
 
   constructor(private journalService: JournalService,
@@ -17,10 +19,17 @@ export class HeaderComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.id = +params['id'];
+          this.journal = this.journalService.getJournal(this.id);
+      }
+    );
   }
 
     onNewJournal(){
-      this.router.navigate(['journal/new']);
+      this.router.navigate(['journal/new'], {relativeTo: this.route});
       
     }
 
