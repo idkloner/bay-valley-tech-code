@@ -1,0 +1,16 @@
+label {
+    display: block;
+}
+
+input {
+    display: block;
+    margin-bottom: 18px;
+}
+
+button{
+    display: block;
+}
+
+p {
+    color: red;
+}

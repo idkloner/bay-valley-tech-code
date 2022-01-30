@@ -1,0 +1,25 @@
+<form [formGroup] = "loginForm">
+<label for = "name">Name</label>
+<input
+  formControlName = "name"
+  id = "name"
+  type = "text">
+<label for = "email">Email</label>
+<input  
+  formControlName = "email"
+  id = "email"
+  type = "email">
+
+  <label for = "password">Password</label>
+  <input  
+    formControlName = "password"
+    id = "password"
+    type = "password">
+  <label for = "retype-password">Retype your password</label>
+  <input
+    formControlName="retypePassword"
+    id = "retype-password"
+    type= "password">
+<p>{{ errorMessage }}</p>
+  <button (click) = "register()">Register</button>
+</form>
