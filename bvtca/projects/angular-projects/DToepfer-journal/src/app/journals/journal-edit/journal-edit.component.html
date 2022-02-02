@@ -1,9 +1,10 @@
 <div class="container">
     <div class="row">
         <form [formGroup] = "journalForm" (ngSubmit) = "onSubmit()"  >
-            <div class = "formGroup">
-                 <mat-form-field  appearance="fill" class = "input-field">
-                    <mat-label for = "entry">Add Entry</mat-label>
+             <div class = "formGroup"> 
+                 <mat-form-field  appearance="fill" class = "input-field"> 
+                    <mat-label for = "entry" 
+                    class = "journal-entry">Add Entry</mat-label>
                     <textarea 
                     matInput placeholder="Journal Entry" 
                     type = "text"
@@ -11,8 +12,8 @@
                     class="journal-input form-control"
                     formControlName = "entry"
                     ></textarea>
-                 </mat-form-field>
-            </div>
+                  </mat-form-field>
+             </div> 
         <div class = "row">
             <div>
                 <button 

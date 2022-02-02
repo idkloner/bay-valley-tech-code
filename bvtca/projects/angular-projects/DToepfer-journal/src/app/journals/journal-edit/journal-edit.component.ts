@@ -1,7 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import { FormGroup, FormControl, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Journal } from '../journal.model';
 import { JournalService } from '../journal.service';
 
 
@@ -27,13 +26,8 @@ export class JournalEditComponent implements OnInit {
      .subscribe(
        (params: Params) => {
         this.id = + params['id'];
-        //this.editedItemIndex = this.id;
-        //this.journal = this.journalService.getJournal(this.id);
-        if(this.id != null){  
-          this.editMode = true;  
-         }
+         this.editMode = params['id'] != null;
          this.initForm();
-         
        }
      );
   }
@@ -59,17 +53,16 @@ export class JournalEditComponent implements OnInit {
   private initForm(){
     let journalEntry = "";
     let journalDate = "";
-
     if (this.editMode){
       const journal = this.journalService.getJournal(this.id);
       journalEntry = journal.entry;
       journalDate = this.getCurrentDate();
+      console.log(journalDate);
     }
-
     this.journalForm = new FormGroup({
       'entry': new FormControl(journalEntry, Validators.required),
       'date': new FormControl(journalDate, Validators.required)
-    })
+    });
   }
  
 
