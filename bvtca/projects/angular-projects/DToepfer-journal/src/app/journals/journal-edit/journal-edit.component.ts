@@ -56,9 +56,10 @@ export class JournalEditComponent implements OnInit {
     if (this.editMode){
       const journal = this.journalService.getJournal(this.id);
       journalEntry = journal.entry;
-      journalDate = this.getCurrentDate();
+      
       console.log(journalDate);
     }
+    journalDate = this.getCurrentDate();
     this.journalForm = new FormGroup({
       'entry': new FormControl(journalEntry, Validators.required),
       'date': new FormControl(journalDate, Validators.required)
