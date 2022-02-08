@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+import { Post } from './post.model';
+import { PostsService } from './posts.service';
+import { PathLocationStrategy } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -7,32 +11,40 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  loadedPosts = [];
+  loadedPosts: Post[] = [];
+  isFetching = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private postService: PostsService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isFetching = true;
+    this.postService.fetchPosts().subscribe( posts => {
+      this.isFetching = false;
+      this.loadedPosts = posts;     //this block needs to stay in the main app because it is directly related to the template, and if in the service will lose connection to the database.
+    });
+  }
 
-  onCreatePost(postData: { title: string; content: string }) {
+  onCreatePost(postData: Post) {
     // Send Http request
     console.log(postData);
-
-    // post is an observable, so it must be subscribed to in order for it to actually be sent, 
-    // becauyse post makes the observable buut then does nothing with it without further instruction 
-    // i.e. subscribe
-    this.http.post(
-      'https://http-1-84319-default-rtdb.firebaseio.com/posts.json', 
-      postData
-      ).subscribe(responseData => {
-        console.log(responseData);
-      });
+    this.postService.createAndStorePost(postData.title, postData.content);
   }
 
   onFetchPosts() {
-    // Send Http request
+    this.isFetching = true;
+    this.postService.fetchPosts().subscribe( posts => {
+      this.isFetching = false;
+      this.loadedPosts = posts;
+    });
   }
 
   onClearPosts() {
-    // Send Http request
-  }
+    this.postService.deletePosts().subscribe(() => {     //sub casue it returns an observable which we want to interact with
+    this.loadedPosts = [];
+    });
+
+  }   
+
+
+ 
 }
