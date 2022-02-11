@@ -1,10 +1,12 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Post } from "./post.model";
-import { map } from "rxjs/operators";
+import { map, catchError } from "rxjs/operators";
+import { Subject, throwError } from "rxjs";
 
 @Injectable({providedIn: 'root'})
 export class PostsService{
+  error = new Subject<string>();
 
 constructor(private http: HttpClient) {}
     
@@ -20,13 +22,24 @@ constructor(private http: HttpClient) {}
             postData
             ).subscribe(responseData => {
               console.log(responseData);
+            }, error => {
+              this.error.next(error.message);
             });
 
     }
 
     fetchPosts(){
+      let searchParams = new HttpParams();
+      searchParams = searchParams.append('print', 'pretty');
+      searchParams = searchParams.append('custom', 'key');
     return this.http
-    .get<{ [key: string]: Post }>('https://http-1-84319-default-rtdb.firebaseio.com/posts.json')  //<> define type responce so ts knows structure, [] is a place holder since we do not know the randomly generated key
+    .get<{ [key: string]: Post }>(
+      'https://http-1-84319-default-rtdb.firebaseio.com/posts.json',  //<> define type responce so ts knows structure, [] is a place holder since we do not know the randomly generated key
+    {
+      headers: new HttpHeaders({"Custom-Header": "Hello"}),
+      params: searchParams
+    }
+    )
     .pipe(
       map(responseData =>{
         const postArray: Post[] =[];        //post[], means it will be an array of these4 types posts
@@ -36,6 +49,10 @@ constructor(private http: HttpClient) {}
           }
         }
         return postArray;
+      }),
+      catchError(errorRes => {
+        //send to analytics
+        return throwError(errorRes);    //this is an observable wrapping the error, goot for error handeling
       })
     );
 
