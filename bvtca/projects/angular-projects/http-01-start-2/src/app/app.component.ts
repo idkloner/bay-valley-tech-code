@@ -57,7 +57,6 @@ export class AppComponent implements OnInit, OnDestroy {
     this.postService.deletePosts().subscribe(() => {     //sub casue it returns an observable which we want to interact with
     this.loadedPosts = [];
     });
-
   }   
 
   onHandelError(){
