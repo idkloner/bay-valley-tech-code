@@ -8,6 +8,25 @@ app.use(express.json());
 
 const JWT_KEY = "THIS_IS_TOP_SECRET";
 
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+
+  if (authHeader) {
+    const token = authHeader.split(' ')[1];
+
+    jsonwebtoken.verify(token, JWT_KEY, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
+};
+
 app.use(async (req, res, next) => {   //match login
   global.db = await mysql.createConnection({ 
     host: 'localhost', 
@@ -24,6 +43,7 @@ app.use(async (req, res, next) => {   //match login
 
 app.post('/login', async (req, res) => {
   console.log('login.req.body', req.body);
+  // console.log(req.body);
 
   const  { email, password } = req.body;
   
@@ -41,17 +61,25 @@ app.post('/login', async (req, res) => {
   }
 });
 
-
-app.get('/:id', async (req, res) => {
-  const [data] = await global.db.query(`SELEcT * FROM car WHERE id = ?`, [req.params.id]);
+app.get('/', authenticateJWT, async (req, res) => {
+  const[data] = await global.db.query('SELECT * FROM car');
 
   res.send({
     data
   });
 });
 
-app.post('/', async (req, res) => {
-  await global.db.query(`INSERT INTO car (make_id, color) VALUES (?, ?)`, [
+
+app.get('/:id', async (req, res) => {
+  const [data] = await global.db.query(`SELECT * FROM car WHERE id = ?`, [req.params.id]);
+
+  res.send({
+    data
+  });
+});
+
+app.post('/',  async (req, res) => {
+  await global.db.query(`INSERT INTO car (make, color) VALUES (?, ?)`, [
     req.body.makeId, 
     req.body.color
   ]);
