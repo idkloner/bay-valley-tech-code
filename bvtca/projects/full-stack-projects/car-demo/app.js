@@ -3,6 +3,7 @@ const jsonwebtoken = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
 const app = express();
 const port = 3306;
+const crypto = require('crypto');
 
 app.use(express.json());
 
@@ -44,11 +45,17 @@ app.use(async (req, res, next) => {   //match login
 app.post('/login', async (req, res) => {
   console.log('login.req.body', req.body);
   // console.log(req.body);
-
+  
+  
   const  { email, password } = req.body;
+
+  passwordHash = crypto.createHash('sha256')
+    .update(req.body.password)
+    .digest('hex');
+  console.log(passwordHash);
   
   const [[user]] = await global.db.query('SELECT * FROM user WHERE email = ? AND password = ?', 
-  [email, password])
+  [email, passwordHash])
 
   if (user) {
     const token = jsonwebtoken.sign({ id: user.id, email: user.email }, JWT_KEY);
@@ -106,13 +113,19 @@ app.post('/new_car', authenticateJWT,  async (req, res) => {
 
 
 app.post('/new_user',  async (req, res) => {
+  
   const  { email, password } = req.body;
   console.log(req.body)
   //console.log(make, color);
 
+  passwordHash = crypto.createHash('sha256')
+    .update(password)
+    .digest('hex');
+  console.log(passwordHash);
+
   await global.db.query(`INSERT INTO user (email, password) VALUES (?, ?)`, [
     req.body.email, 
-    req.body.password
+    passwordHash
   ]);
 
   res.send('I am posting data!')
