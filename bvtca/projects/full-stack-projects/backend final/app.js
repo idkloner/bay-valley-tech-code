@@ -86,7 +86,7 @@ app.get('/',  async (req, res) => {
   const authHeader = req.headers.authorization;
   
   //console.log(req);
-  const[data] = await global.db.query("SELECT name as product, description, brand_name as brand, category_name as category FROM products INNER JOIN product_brands ON products.brand_id = product_brands.brand_id INNER JOIN product_categories ON products.category_id = product_categories.category_id");
+  const[data] = await global.db.query( "SELECT name as product, description, brand_name as brand, category_name as category FROM products INNER JOIN product_brands ON products.brand_id = product_brands.brand_id INNER JOIN product_categories ON products.category_id = product_categories.category_id");
 
   
 
@@ -132,13 +132,14 @@ app.get('/:id', async (req, res) => {
 
 app.post('/new_fav', authenticateJWT,  async (req, res) => {
   
-  const  {notes} = req.body;
+  const  { notes } = req.body;
   console.log("req.body = " + req.body);
   
   const authHeader = req.headers.authorization;
   const token = authHeader.split(' ')[1];
 
-  await global.db.query(`INSERT INTO favorite_products (notes, jwt) VALUES ( ?,  ?)`, [ 
+  await global.db.query(`INSERT INTO favorite_products ( notes, jwt) VALUES (?, ?)`, [
+
     req.body.notes,
     token
   
