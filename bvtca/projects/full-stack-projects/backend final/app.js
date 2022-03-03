@@ -33,7 +33,7 @@ app.use(async (req, res, next) => {   //match login
     host: 'localhost', 
     user: 'root', 
     password: 'Anch0r07', 
-    database: 'bvt_demo', 
+    database: 'backend_final', 
     multipleStatements: true 
   });
 
@@ -54,7 +54,7 @@ app.post('/login', async (req, res) => {
     .digest('hex');
   console.log(passwordHash);
   
-  const [[user]] = await global.db.query('SELECT * FROM user WHERE email = ? AND password = ?', 
+  const [[user]] = await global.db.query('SELECT * FROM users WHERE email = ? AND password = ?', 
   [email, passwordHash])
 
   if (user) {
@@ -68,13 +68,53 @@ app.post('/login', async (req, res) => {
   }
 });
 
-app.get('/', authenticateJWT, async (req, res) => {
+// app.get('/', authenticateJWT, async (req, res) => {
+
+//   const authHeader = req.headers.authorization;
+//   const token = authHeader.split(' ')[1];
+//   //console.log(req);
+//   const[data] = await global.db.query('SELECT * FROM car Where user_id = ?', 
+//   [token]);
+
+//   res.send({
+//     data
+//   });
+// });
+
+app.get('/',  async (req, res) => {
 
   const authHeader = req.headers.authorization;
-  const token = authHeader.split(' ')[1];
+  
   //console.log(req);
-  const[data] = await global.db.query('SELECT * FROM car Where user_id = ?', 
-  [token]);
+  const[data] = await global.db.query("SELECT name as product, description, brand_name as brand, category_name as category FROM products INNER JOIN product_brands ON products.brand_id = product_brands.brand_id INNER JOIN product_categories ON products.category_id = product_categories.category_id");
+
+  
+
+  res.send({
+    data
+  });
+});
+
+app.get('/brands',  async (req, res) => {
+
+  
+  
+  //console.log(req);
+  const[data] = await global.db.query("SELECT * from product_brands");
+
+  
+
+  res.send({
+    data
+  });
+});
+
+app.get('/categories',  async (req, res) => {
+  
+  //console.log(req);
+  const[data] = await global.db.query("SELECT * from product_categories");
+
+  
 
   res.send({
     data
@@ -83,26 +123,23 @@ app.get('/', authenticateJWT, async (req, res) => {
 
 
 app.get('/:id', async (req, res) => {
-  const [data] = await global.db.query(`SELECT * FROM car WHERE id = ?`, [req.params.id]);
+  const [data] = await global.db.query(`SELECT * FROM products WHERE id = ?`, [req.params.id]);
 
   res.send({
     data
   });
 });
 
-app.post('/new_car', authenticateJWT,  async (req, res) => {
+app.post('/new_fav', authenticateJWT,  async (req, res) => {
   
-  const  { make, color} = req.body;
+  const  {notes} = req.body;
   console.log("req.body = " + req.body);
   
   const authHeader = req.headers.authorization;
   const token = authHeader.split(' ')[1];
 
-  //console.log(make, color);
-  await global.db.query(`INSERT INTO car (make, color, date_entered, user_id) VALUES (?, ?, now(), ?)`, [
-    req.body.make, 
-    req.body.color,
-    
+  await global.db.query(`INSERT INTO favorite_products (notes, jwt) VALUES ( ?,  ?)`, [ 
+    req.body.notes,
     token
   
     
@@ -124,6 +161,7 @@ app.post('/new_user',  async (req, res) => {
   console.log(passwordHash);
 
   await global.db.query(`INSERT INTO users (name, email, password) VALUES (?, ?, ?)`, [
+    req.body.name,
     req.body.email, 
     passwordHash
   ]);
