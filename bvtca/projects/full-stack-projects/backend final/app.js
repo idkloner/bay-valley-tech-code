@@ -2,7 +2,7 @@ const express = require('express');
 const jsonwebtoken = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
 const app = express();
-const port = 3306;
+const port = 3000;
 const crypto = require('crypto');
 
 app.use(express.json());
@@ -30,7 +30,7 @@ const authenticateJWT = (req, res, next) => {
 
 app.use(async (req, res, next) => {   //match login
   global.db = await mysql.createConnection({ 
-    host: 'localhost', 
+    host: '127.0.0.1', 
     user: 'root', 
     password: 'Anch0r07', 
     database: 'backend_final', 
@@ -68,41 +68,24 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// app.get('/', authenticateJWT, async (req, res) => {
 
-//   const authHeader = req.headers.authorization;
-//   const token = authHeader.split(' ')[1];
-//   //console.log(req);
-//   const[data] = await global.db.query('SELECT * FROM car Where user_id = ?', 
-//   [token]);
 
-//   res.send({
-//     data
-//   });
-// });
+ app.get('/',  async (req, res) => {
 
-app.get('/',  async (req, res) => {
-
-  const authHeader = req.headers.authorization;
+   const authHeader = req.headers.authorization;
   
-  //console.log(req);
-  const[data] = await global.db.query( "SELECT name as product, description, brand_name as brand, category_name as category FROM products INNER JOIN product_brands ON products.brand_id = product_brands.brand_id INNER JOIN product_categories ON products.category_id = product_categories.category_id");
+   //console.log(req);
+   const[data] = await global.db.query( "SELECT name as product, description, brand_name as brand, category_name as category FROM products INNER JOIN product_brands ON products.brand_id = product_brands.brand_id INNER JOIN product_categories ON products.category_id = product_categories.category_id");
 
-  
-
-  res.send({
-    data
-  });
-});
+   res.send({
+     data
+   });
+ });
 
 app.get('/brands',  async (req, res) => {
 
-  
-  
   //console.log(req);
   const[data] = await global.db.query("SELECT * from product_brands");
-
-  
 
   res.send({
     data
@@ -113,8 +96,6 @@ app.get('/categories',  async (req, res) => {
   
   //console.log(req);
   const[data] = await global.db.query("SELECT * from product_categories");
-
-  
 
   res.send({
     data
@@ -139,11 +120,43 @@ app.post('/new_fav', authenticateJWT,  async (req, res) => {
   const token = authHeader.split(' ')[1];
 
   await global.db.query(`INSERT INTO favorite_products ( notes, jwt) VALUES (?, ?)`, [
-
     req.body.notes,
     token
   
-    
+  ]);
+
+  res.send('I am posting data!')
+});
+
+
+app.post('/edit_fav', authenticateJWT,  async (req, res) => {
+  
+  const  { new_note, old } = req.body;
+  console.log("req.body = " + req.body.new_note + req.body.old);
+  
+  const authHeader = req.headers.authorization;
+
+
+  await global.db.query(`update favorite_products set notes = (?) where notes = (?)`, [
+    req.body.new_note,
+    req.body.old
+
+  
+  ]);
+
+  res.send('I am posting data!')
+});
+
+app.post('/delete_fav', authenticateJWT,  async (req, res) => {
+  
+  const  { note } = req.body;
+  console.log("req.body = " + req.body.note);
+  
+  const authHeader = req.headers.authorization;
+
+  await global.db.query(`delete from favorite_products where notes = (?)`, [
+    req.body.note
+
   ]);
 
   res.send('I am posting data!')
