@@ -23,6 +23,8 @@ import { JournalsComponent } from './journals/journals.component';
 import { JournalService } from './journals/journal.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShortenPipe } from '../shorten.pipe';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 
@@ -37,7 +39,8 @@ import { ShortenPipe } from '../shorten.pipe';
     JournalItemComponent,
     JournalDetailComponent,
     JournalsComponent,
-    ShortenPipe
+    ShortenPipe,
+    
 
     
     
@@ -53,7 +56,8 @@ import { ShortenPipe } from '../shorten.pipe';
     MatInputModule, 
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
 
   exports:[

@@ -1,72 +1,111 @@
 const express = require('express');
-//const jsonwebtoken = require('jsonwebtoken');
+const jsonwebtoken = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
 const app = express();
-const port = 3000;
+//const port = 3000;
 const crypto = require('crypto');
+const { ErrorHandler } = require('@angular/core');
 
 app.use(express.json());
 
-const JWT_KEY = "THIS_IS_TOP_SECRET";
+ 
 
-const authenticateJWT = (req, res, next) => {
-  const authHeader = req.headers.authorization;
 
-  if (authHeader) {
-    const token = authHeader.split(' ')[1];
+require('dotenv').config();
 
-    jsonwebtoken.verify(token, JWT_KEY, (err, user) => {
-      if (err) {
-        return res.sendStatus(403);
-      }
+const port = process.env.PORT;
 
-      req.user = user;
-      next();
-    });
-  } else {
-    res.sendStatus(401);
-  }
-};
-
-app.use(async (req, res, next) => {   //match login
-  global.db = await mysql.createConnection({ 
-    host: '127.0.0.1', 
-    user: 'root', 
-    password: 'Anch0r07', 
-    database: 'angular_final', 
-    multipleStatements: true 
-  });
-
-  global.db.query(`SET time_zone = '-8:00'`);
-  await next();
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 
-// app.post('/login', async (req, res) => {
-//   console.log('login.req.body', req.body);
-//   // console.log(req.body);
-  
-  
-//   const  { email, password } = req.body;
+app.use(async function mysqlCommection( req, res, next) {
+  try {
+    req.db - await pool.getConnection();
+    req.db.connection.config.namedPlacehonders = true;
 
-//   passwordHash = crypto.createHash('sha256')
-//     .update(req.body.password)
-//     .digest('hex');
-//   console.log(passwordHash);
-  
-//   const [[user]] = await global.db.query('SELECT * FROM users WHERE email = ? AND password = ?', 
-//   [email, passwordHash])
+    await req.db.query('SET SESSION sql_mode = "TRADITIONAL"');
+    await req.db.query(`SET time_zone = '-8:00'`);
 
-//   if (user) {
-//     const token = jsonwebtoken.sign({ id: user.id, email: user.email }, JWT_KEY);
-  
-//     res.json({
-//       jwt: token
-//     });
-//   } else {
-//     res.send('Username or password incorrect');
-//   }
+    await next();
+
+    req.db.release();
+  } catch (err) {
+    console.log(err)
+    if (req.db) req.db.release();
+    throw err;
+  }
+});
+
+app.use(cors());
+app.use(bodyParser.json()); 
+
+
+
+const JWT_KEY = process.env.JWT_KEY;
+
+
+ const authenticateJWT = (req, res, next) => {
+   const authHeader = req.headers.authorization;
+
+   if (authHeader) {
+     const token = authHeader.split(' ')[1];
+
+     jsonwebtoken.verify(token, JWT_KEY, (err, user) => {
+       if (err) {
+                  return res.sendStatus(403);
+       }
+
+       req.user = user;
+       next();
+     });
+   } else {
+     res.sendStatus(401);
+   }
+ };
+
+// app.use(async (req, res, next) => {   //match login
+//   global.db = await mysql.createConnection({ 
+//     host: '127.0.0.1', 
+//     user: 'root', 
+//     password: 'Anch0r07', 
+//     database: 'angular_final', 
+//     multipleStatements: true 
+//   });
+
+//   global.db.query(`SET time_zone = '-8:00'`);
+//   await next();
 // });
+
+
+ app.post('/login', async (req, res) => {
+   console.log('login.req.body', req.body);
+   // console.log(req.body);
+  
+  
+   const  { email, password } = req.body;
+
+   passwordHash = crypto.createHash('sha256')
+     .update(req.body.password)
+     .digest('hex');
+   console.log(passwordHash);
+  
+   const [[user]] = await global.db.query('SELECT * FROM users WHERE email = ? AND password = ?', 
+   [email, passwordHash])
+
+   if (user) {
+     const token = jsonwebtoken.sign({ id: user.id, email: user.email }, JWT_KEY);
+  
+     res.json({
+       jwt: token
+     });
+   } else {     res.send('Username or password incorrect');
+   }
+ });
 
 
 
