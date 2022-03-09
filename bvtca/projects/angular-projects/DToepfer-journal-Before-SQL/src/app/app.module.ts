@@ -23,6 +23,7 @@ import { JournalsComponent } from './journals/journals.component';
 import { JournalService } from './journals/journal.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShortenPipe } from '../shorten.pipe';
+import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 
 
 
@@ -53,13 +54,14 @@ import { ShortenPipe } from '../shorten.pipe';
     MatInputModule, 
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
 
   exports:[
     
   ],
-  providers: [JournalService],
+  providers: [HttpClient, JournalService],
   bootstrap: [AppComponent],
 
   
