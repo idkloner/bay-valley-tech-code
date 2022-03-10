@@ -28,7 +28,8 @@ export class JournalListComponent implements OnInit {
         this.journals = journals;
       }
     )
-     this.journals = this.journalService.getJournals();
+     //this.journals = this.journalService.getJournals();
+     this.journalService.getJournals();
      }
 
     

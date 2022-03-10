@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Journal } from 'src/app/journals/journal.model'
@@ -14,6 +14,8 @@ import { catchError, retry } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class JournalService {
   journalsChanged = new Subject<Journal[]>();
   journalSelected = new EventEmitter<Journal>();
@@ -36,29 +38,59 @@ export class JournalService {
 
   constructor( private http: HttpClient) { }
 
-  getJournals(body){
-    const promise = this.http.post(`${API_URL}`, body).toPromise();
-    return  this.journals.slice();
+  private async request(method: string, url: string, data?: any) {
+
+    const result = this.http.request(method, url, {
+      body: data,
+      responseType: 'json',
+      observe: 'body',
+      headers: {
+ 
+      }
+    });
+    return new Promise((resolve, reject) => {
+      result.subscribe(resolve, reject);
+    });
+  }
+
+  getJournals(){
+    return this.request('GET', `${API_URL}/journal`);
+    const journalCopy = this.request('GET', `${API_URL}/journal`);
+    console.log(journalCopy);
+    return journalCopy;
+    
+    
+    //return this.http.get(`${API_URL}`).toPromise();
+    //return  this.journals.slice();
   }
 
   getJournal(id: number){
     return this.journals[id];
   }
 
+  addJournal(journal: Journal) {
+    
+    return this.request('POST', `${API_URL}/new`, journal);
+    //this.http.post(`${API_URL}/new`, journal).toPromise();
+    //console.log(Promise);
+
+    //this.journals.push(journal);
+    //this.journalsChanged.next(this.journals.slice());
+  }
+
+
   deleteJournal(index:number){
-    this.journals.splice(index, 1);
-    this.journalsChanged.next(this.journals.slice());
+    return this.request('DELETE', `${API_URL}/new`, index);
+    //this.journals.splice(index, 1);
+    //this.journalsChanged.next(this.journals.slice());
     
   }
 
-  addJournal(journal: Journal) {
-    this.journals.push(journal);
-    this.journalsChanged.next(this.journals.slice());
-  }
 
   updateJournal( index: number, newJournal: Journal) {
-    this.journals[index] = newJournal;
-    this.journalsChanged.next(this.journals.slice());
+    return this.request('PUT', `${API_URL}/edit`, newJournal);
+   // this.journals[index] = newJournal;
+    //this.journalsChanged.next(this.journals.slice());
   }
 
  
