@@ -13,6 +13,7 @@ export class JournalItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit(){
+    
   }
 
 }

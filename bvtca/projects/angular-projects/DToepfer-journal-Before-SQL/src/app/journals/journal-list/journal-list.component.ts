@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Journal } from '../journal.model';
 import { JournalService } from 'src/app/journals/journal.service';
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class JournalListComponent implements OnInit { 
   journals!: Journal[];
+  
   subscription!: Subscription;
   
   constructor(private journalService: JournalService,
@@ -22,15 +23,21 @@ export class JournalListComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.subscription = this.journalService.journalsChanged
-    .subscribe(
-      (journals: Journal[]) => {
-        this.journals = journals;
-      }
-    )
-     //this.journals = this.journalService.getJournals();
-     this.journalService.getJournals();
-     }
+  //   this.subscription = this.journalService.journalsChanged
+  //   .subscribe(
+  //      (journals: Journal[]) => {
+  //        this.journals = journals;
+  //      }
+  //  )
+  //    this.journalService.getJournals();
 
-    
+      this.journalService.getJournals().then(res => {
+       this.journals = res;
+       console.log('journals', res);
+       //return this.journals;
+     });
+
+
+
+    }
 }

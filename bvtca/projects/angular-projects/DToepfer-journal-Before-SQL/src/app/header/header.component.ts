@@ -23,7 +23,15 @@ export class HeaderComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.id = +params['id'];
-          this.journal = this.journalService.getJournal(this.id);
+          //this.journal = this.journalService.getJournal(this.id);
+
+          // this.journalService.getJournal(this.id).then(res => {
+          //   this.journal = res;
+          //   console.log(res);
+          // });
+          //console.log(this.journal);
+          
+
       }
     );
   }

@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { FormGroup, FormControl, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Journal } from '../journal.model';
 import { JournalService } from '../journal.service';
 
 
@@ -10,7 +11,7 @@ import { JournalService } from '../journal.service';
   styleUrls: ['./journal-edit.component.css']
 })
 export class JournalEditComponent implements OnInit {
-  //journal!: Journal; 
+  journal!: Journal; 
   id!: number;
   editMode = false;
   editedItemIndex!: number;
@@ -53,10 +54,20 @@ export class JournalEditComponent implements OnInit {
   private initForm(){
     let journalEntry = "";
     let journalDate = "";
+   
     if (this.editMode){
-      const journal = this.journalService.getJournal(this.id);
-      journalEntry = journal.entry;
-      
+      //const journal = this.journalService.getJournal(this.id);
+
+
+      this.journalService.getJournal(this.id).then(res => {
+        this.journal = res;
+        console.log(res);
+      });
+      console.log(this.journal);
+      journalEntry = this.journal.entry;
+
+
+
       console.log(journalDate);
     }
     journalDate = this.getCurrentDate();

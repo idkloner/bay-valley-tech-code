@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Journal } from '../journal.model';
 import { JournalService } from '../journal.service';
@@ -9,22 +9,29 @@ import { JournalService } from '../journal.service';
   styleUrls: ['./journal-detail.component.css']
 })
 export class JournalDetailComponent implements OnInit {
-  journal!: Journal;
+  @Input() journal!: Journal;
+  
+  //journal!: Journal;
   id!: number;
   editedItemIndex!: number;
+  
 
   constructor(private journalService: JournalService,
               private route: ActivatedRoute,
               private router: Router) { }
 
   ngOnInit(){
-      this.route.params
-        .subscribe(
-          (params: Params) => {
+       this.route.params
+         .subscribe(
+           (params: Params) => {
             this.id = + params['id'];
             this.editedItemIndex = this.id;
+            this.journalService.getJournal(this.id).then(res => {
+              this.journal = res;
+              console.log('journal', res);
+
+            });
             
-            this.journal = this.journalService.getJournal(this.id);
         }
       );
   }
