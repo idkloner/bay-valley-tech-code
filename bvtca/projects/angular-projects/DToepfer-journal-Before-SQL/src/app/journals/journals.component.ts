@@ -10,16 +10,18 @@ import { JournalService } from './journal.service';
 })
 export class JournalsComponent implements OnInit{ 
   selectedJournal!: Journal;
+  journals!: Journal[];
 
   constructor(private journalService: JournalService) { }
 
   ngOnInit(){
-    this.journalService.journalSelected
-      .subscribe(
-        (journal: Journal) => {
-          this.selectedJournal = journal;
-          }
-      );
+     this.journalService.journalSelected
+       .subscribe(
+         (journal: Journal) => {
+           this.selectedJournal = journal;
+           }
+       );
   } 
+  
 
 }

@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Journal } from '../journal.model';
 import { JournalService } from 'src/app/journals/journal.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class JournalListComponent implements OnInit { 
   journals!: Journal[];
+  
   
   subscription!: Subscription;
   
@@ -40,4 +41,7 @@ export class JournalListComponent implements OnInit {
 
 
     }
+
+
+    
 }

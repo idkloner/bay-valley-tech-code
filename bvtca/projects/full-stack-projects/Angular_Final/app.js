@@ -74,28 +74,41 @@ app.post('/login', async (req, res) => {
 });
 
 
-
  app.get('/',  async (req, res) => {
 
    //const authHeader = req.headers.authorization;
   
    //console.log(req);
-   const[data] = await global.db.query( "SELECT date, entry FROM entrys");
+    
+   global.db.query( 
+     'set @row_num = -1;'
+     ); 
+     
+    global.db.query( 
+      'update angular_final.entrys set id = (@row_num:=@row_num +1);'
+      );
+     const[data] = await global.db.query(
+      `SELECT id, date, entry FROM entrys`
+     );
+   res.json(data);
   
-   res.send({
-   data
-   });
+
+   //return data;
+   
  });
 
 
 
 
 app.get('/:id', async (req, res) => {
-  const [data] = await global.db.query(`SELECT * FROM entrys WHERE id = ?`, [req.params.id]);
-
-  res.send({
-    data
-  });
+  const [data] = await global.db.query(
+    `SELECT * FROM entrys where id = ?`,
+    [req.params.id]
+    );
+    res.json(data);
+ 
+    //return data;
+  
 });
 
 
@@ -107,7 +120,9 @@ app.post('/new',  async (req, res) => {
   //const authHeader = req.headers.authorization;
   //const token = authHeader.split(' ')[1];
 
-  await global.db.query('Insert into entrys (date, entry) values (now(), ?)', [
+  
+
+  await global.db.query('Insert into entrys (date, entry) values (date(now()), ?)', [
     req.body.entry
   
   ]);
@@ -126,7 +141,7 @@ app.put('/edit',  async (req, res) => {
 
   await global.db.query(`update entrys set entry = (?) where id = (?)`, [
     req.body.entry,
-     req.body.id
+    req.body.id
 
   
   ]);

@@ -10,8 +10,7 @@ import { JournalService } from '../journal.service';
 })
 export class JournalDetailComponent implements OnInit {
   @Input() journal!: Journal;
-  
-  //journal!: Journal;
+
   id!: number;
   editedItemIndex!: number;
   
@@ -21,11 +20,11 @@ export class JournalDetailComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(){
+    
        this.route.params
          .subscribe(
            (params: Params) => {
             this.id = + params['id'];
-            this.editedItemIndex = this.id;
             this.journalService.getJournal(this.id).then(res => {
               this.journal = res;
               console.log('journal', res);

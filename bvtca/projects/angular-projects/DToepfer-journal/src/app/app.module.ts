@@ -24,8 +24,9 @@ import { JournalService } from './journals/journal.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShortenPipe } from '../shorten.pipe';
 
-import { HttpClientModule, HttpHandler } from '@angular/common/http';
+import { HttpClientModule} from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { Journal } from './journals/journal.model';
 
 
 
@@ -47,6 +48,7 @@ import { HttpClient } from '@angular/common/http';
     JournalsComponent,
     ShortenPipe,
     
+    
 
     
     
@@ -64,6 +66,7 @@ import { HttpClient } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+  
   
     
   ],

@@ -9,10 +9,11 @@ import { API_URL } from 'src/environments/environment';
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
+@Injectable({
+  providedIn: 'root',
+})
 
 
-@Injectable(//{providedIn: 'root',}
-)
 
 
 export class JournalService {

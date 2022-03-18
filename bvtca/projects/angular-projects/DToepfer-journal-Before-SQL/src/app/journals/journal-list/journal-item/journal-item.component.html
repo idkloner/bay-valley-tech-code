@@ -2,10 +2,12 @@
   <a
     style = "cursor:pointer"
     [routerLink] = "[index]"
-    class="list-group-item clearfix">
-    <div class = "row entry-list">
+    class="list-group-item clearfix"
+    >
+    <div class = "row entry-list" >
           <mat-icon class = "col-1">circle</mat-icon>
-            <mat-list-item class = "col-10">{{ journal.date }}: 
+            <mat-list-item 
+            class = "col-10">{{ journal.date }}: 
               <br> {{ journal.entry | shorten:20}}</mat-list-item>
 <!-- <div class="col-2">
   <button mat-raised-button color = "accent" >Edit</button>
