@@ -4,6 +4,7 @@ import { Journal } from '../journal.model';
 import { JournalService } from 'src/app/journals/journal.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Subscription } from 'rxjs';
+import { DataService } from 'src/app/shared/data.service';
 
 
 @Component({
@@ -12,12 +13,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./journal-list.component.css']
 })
 export class JournalListComponent implements OnInit { 
-  journals!: Journal[];
+  journals: Journal[] = [];
   
   
   subscription!: Subscription;
   
   constructor(private journalService: JournalService,
+              private dataService: DataService,
               private route: ActivatedRoute,
               private router: Router) {
 
@@ -30,13 +32,16 @@ export class JournalListComponent implements OnInit {
   //        this.journals = journals;
   //      }
   //  )
-  //    this.journalService.getJournals();
 
+     
       this.journalService.getJournals().then(res => {
-       this.journals = res;
-       console.log('journals', res);
-       //return this.journals;
-     });
+            this.journals = res;
+            console.log('journals', res);
+            //return this.journals;
+          });
+
+
+     
 
 
 

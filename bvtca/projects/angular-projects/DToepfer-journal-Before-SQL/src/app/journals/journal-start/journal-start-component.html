@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form [formGroup] = "loginForm" (ngSubmit) = "onLogin()">
+                <div class="formGroup">
+                    <mat-form-field class = "login-field">
+                        <mat-label for = "username"
+                        class = "username"> Username </mat-label>
+                        <textarea
+                        matInput placeholder = "Username"
+                        type = "text"
+                        id = "username"
+                        class = "username-input form-control"
+                        formControlName = "username"
+                        ></textarea>
+
+                        <mat-label for = "password"
+                        class = "password"> Password </mat-label>
+                        <textarea
+                        matInput placeholder = "Password"
+                        type = "text"
+                        id = "password"
+                        class = "password-input form-control"
+                        formControlName = "password"
+                        ></textarea>                    
+                    </mat-form-field>
+                </div>
+    <div class="row">
+        <div class="col">
+            <button
+                type = "submit"
+                class = "button"
+                mat-raised-button
+                color = "primary">
+                Login
+            </button>
+
+        </div>
+    </div>            
+            </form>
+        </div>
+    </div>
+</div>

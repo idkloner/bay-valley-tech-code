@@ -41,20 +41,26 @@ export class JournalService {
     });
   }
 
+
+  // setJournals(journals: Journal[]){
+  //   this.journals = journals;
+
+  // }
+
+
   getJournals(): Promise<any>{
-    //const data = this.request('GET', `${API_URL}/`);
-    return this.http
-    .get(`${API_URL}/`)
-    .toPromise()
-   
+     return this.http
+     .get(`${API_URL}/`)
+     .toPromise()
+    /*  .then(res => {
+       this.journals = res
+     }); */
     
-  
-  
-    //return this.http.get(`${API_URL}`).toPromise();
-    //console.log('journal:' + this.journals);
   }
 
   getJournal(id: number): Promise<any>{
+    //return this.journals[id];
+
     return this.http
     .get(`${API_URL}/${id}`)
     .toPromise()
@@ -84,6 +90,11 @@ export class JournalService {
     return this.request('PUT', `${API_URL}/edit`, newJournal);
    // this.journals[index] = newJournal;
     //this.journalsChanged.next(this.journals.slice());
+  }
+
+
+  logIn(logInfo: string){
+
   }
 
  

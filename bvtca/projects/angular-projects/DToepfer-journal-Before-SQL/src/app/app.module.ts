@@ -18,9 +18,14 @@ import { JournalItemComponent } from './journals/journal-list/journal-item/journ
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input'
 import { AppRoutingModule } from './app-routing.module';
-import { JournalDetailComponent } from './journals/journal-detail/journal-detail.component';
+import { JournalDetailComponent } from './journals/journal-list/journal-detail/journal-detail.component';
 import { JournalsComponent } from './journals/journals.component';
+import { JournalStartComponent } from './journals/journal-start/journal-start-component';
+
+
 import { JournalService } from './journals/journal.service';
+import { DataService } from './shared/data.service';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShortenPipe } from '../shorten.pipe';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
@@ -37,6 +42,7 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
     JournalEditComponent,
     JournalItemComponent,
     JournalDetailComponent,
+    JournalStartComponent,
     JournalsComponent,
     ShortenPipe
 
@@ -61,7 +67,7 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
   exports:[
     
   ],
-  providers: [HttpClient, JournalService],
+  providers: [HttpClient, JournalService, DataService],
   bootstrap: [AppComponent],
 
   

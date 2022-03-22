@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Journal } from '../journal.model';
-import { JournalService } from '../journal.service';
+import { Journal } from '../../journal.model';
+import { JournalService } from '../../journal.service';
 
 @Component({
   selector: 'app-journal-detail',
@@ -10,6 +10,7 @@ import { JournalService } from '../journal.service';
 })
 export class JournalDetailComponent implements OnInit {
   @Input() journal!: Journal;
+  @Input() index!: number;
 
   id!: number;
   editedItemIndex!: number;
@@ -25,13 +26,16 @@ export class JournalDetailComponent implements OnInit {
          .subscribe(
            (params: Params) => {
             this.id = + params['id'];
-            this.journalService.getJournal(this.id).then(res => {
-              this.journal = res;
-              console.log('journal', res);
+            //this.journalService.getJournal(this.id);
+            //console.log('journal', this.journal);
+             this.journalService.getJournal(this.id).then(res => {
+               this.journal = res;
+               console.log('journal', res);
+               
 
             });
             
-        }
+       }
       );
   }
 

@@ -56,13 +56,13 @@ export class JournalEditComponent implements OnInit {
     let journalDate = "";
    
     if (this.editMode){
-      //const journal = this.journalService.getJournal(this.id);
+      const journal = this.journalService.getJournal(this.id);
 
 
-      this.journalService.getJournal(this.id).then(res => {
-        this.journal = res;
-        console.log(res);
-      });
+      // this.journalService.getJournal(this.id).then(res => {
+      //   this.journal = res;
+      //   console.log(res);
+      // });
       console.log(this.journal);
       journalEntry = this.journal.entry;
 
