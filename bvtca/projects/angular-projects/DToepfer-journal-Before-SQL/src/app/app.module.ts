@@ -29,6 +29,7 @@ import { DataService } from './journals/data.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShortenPipe } from '../shorten.pipe';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { ShortenDatePipe } from 'src/shorten-date.pipe';
 
 
 
@@ -44,7 +45,8 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
     JournalDetailComponent,
     JournalStartComponent,
     JournalsComponent,
-    ShortenPipe
+    ShortenPipe,
+    ShortenDatePipe
 
     
     

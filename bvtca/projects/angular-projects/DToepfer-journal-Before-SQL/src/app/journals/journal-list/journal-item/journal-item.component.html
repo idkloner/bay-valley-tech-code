@@ -7,7 +7,7 @@
     <div class = "row entry-list" >
           <mat-icon class = "col-1">circle</mat-icon>
             <mat-list-item 
-            class = "col-10">{{ journal.date }}: 
+            class = "col-10">{{ journal.date |shortendate:10 }}: 
               <br> {{ journal.entry | shorten:20}}</mat-list-item>
       <mat-divider></mat-divider>
   

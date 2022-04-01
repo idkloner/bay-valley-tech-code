@@ -14,9 +14,10 @@ export class JournalEditComponent implements OnInit {
   journal!: Journal; 
   id!: number;
   editMode = false;
-  editedItemIndex!: number;
   journalForm!: FormGroup;
-  journalToEdit!: Journal;
+  //editedItemIndex!: number;
+  
+  //journalToEdit!: Journal;
   
  
   constructor(private journalService: JournalService,
@@ -42,14 +43,14 @@ export class JournalEditComponent implements OnInit {
   onSubmit(){
     if( this.editMode ){
       this.journalService.updateJournal(this.id, this.journalForm.value);
-      console.log(this.id, this.journalForm.value)
+      //console.log(this.id, this.journalForm.value)
     } else {
       this.journalService.addJournal(this.journalForm.value);    
     }
-    console.log(this.journalForm);
+    //console.log(this.journalForm.value);
     this.journalForm.reset();
-    setTimeout(() =>
-    this.onCancel(), 500);
+    //setTimeout(() =>
+    this.onCancel()//, 500);
     
 
   }
@@ -63,17 +64,17 @@ export class JournalEditComponent implements OnInit {
 
   private initForm(){
     let journalEntry = "";
-    let journalDate = "";
+    //let journalDate = "";
    
     if (this.editMode){
       //const journal = this.journalService.setCurrentUserJournals();
       this.journal = this.journalService.selectJournal(this.id);
       journalEntry = this.journal.entry;
     } 
-      journalDate = this.getCurrentDate();
+      //journalDate = this.getCurrentDate();
       this.journalForm = new FormGroup({
         'entry': new FormControl(journalEntry, Validators.required),
-        'date': new FormControl(journalDate, Validators.required)
+        //'date': new FormControl(journalDate, Validators.required)     
       
       });
     

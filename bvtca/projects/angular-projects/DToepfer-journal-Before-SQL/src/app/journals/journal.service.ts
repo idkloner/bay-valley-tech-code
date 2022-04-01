@@ -1,14 +1,16 @@
 
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable} from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
+
+
 import { Journal } from 'src/app/journals/journal.model'
 
 import { API_URL } from 'src/environments/environment';
 
 //import { journals } from 'src/app/mock.journal'
 import { HttpHandler } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+
 
 
 @Injectable({
@@ -65,13 +67,16 @@ export class JournalService{
 
 
   deleteJournal(id:number): Promise<any>{
-    return this.request('DELETE', `${API_URL}/${id}`, id); 
-    //return this.http.delete(`${API_URL}/${id}`, id);
+    //return this.request('DELETE', `${API_URL}/${id}`, id); 
+    return this.http.delete(`${API_URL}/${id}`).toPromise();  //doing it this way instead of ^ removes the CORS error, but still has the promise error
   }
 
 
   updateJournal( id: number, newJournal: Journal) {
-    return this.request('PUT', `${API_URL}/${id}/edit`, newJournal);
+    //return this.request('PUT', `${API_URL}/${id}/edit`, newJournal);
+    console.log(id, newJournal);
+    return this.http.put(`${API_URL}/${id}/edit`, newJournal);// this way provides no error, however the entry is not changed
+  
   }
 
 

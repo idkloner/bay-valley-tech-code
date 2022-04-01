@@ -86,10 +86,10 @@ app.post('/login', async (req, res) => {
      ); 
      
     global.db.query( 
-      'update angular_final.entrys set id = (@row_num:=@row_num +1);'
+      'update angular_final.entrys set id = (@row_num:=@row_num +1) order by date desc;'
       );
      const[data] = await global.db.query(
-      `SELECT id, date, entry FROM entrys`
+      `SELECT id, date, entry FROM entrys order by date desc`
      );
    res.json(data);
   
@@ -107,7 +107,7 @@ app.get('/:id', async (req, res) => {
     [req.params.id]
     );
     res.json(data);
- 
+    
     //return data;
   
 });
@@ -118,21 +118,25 @@ app.post('/new',  async (req, res) => {
   //const authHeader = req.headers.authorization;
   //const token = authHeader.split(' ')[1];
 
-  await global.db.query('Insert into entrys (date, entry) values (date(now()), ?)', [
+  await global.db.query('Insert into entrys (date, entry) values (now(), ?)', [
     req.body.entry
   ]);
 
   res.send('I am posting data!')
+//need to have command or something that will reload the page and add the id
+
 });
 
 
-app.put('/edit',  async (req, res) => {
+app.put('/:id/edit',  async (req, res) => {
 
   //const authHeader = req.headers.authorization;
+  console.log("id",req.params.id)
 
-  await global.db.query(`update entrys set entry = (?) where id = (?)`, [
+  await global.db.query(`update entrys set date = now(), entry = (?) where id = (?)`, 
+  [
     req.body.entry,
-    req.body.id
+    req.params.id
   ]);
 
   res.send('I am posting data!')
@@ -143,8 +147,9 @@ app.put('/edit',  async (req, res) => {
 app.delete('/:id',  async (req, res) => {
   //const authHeader = req.headers.authorization;
 
-  await global.db.query(`delete from entrys where id = (?)`, [
-    req.body.id
+  await global.db.query(`delete from entrys where id = (?)`, 
+  [
+    req.params.id     //using params not body will now delete the journal, still has promise error and doesnt reload page. 
   ]);
 
   res.send('I am posting data!')
