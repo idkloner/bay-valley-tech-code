@@ -24,7 +24,7 @@ import { JournalStartComponent } from './journals/journal-start/journal-start-co
 
 
 import { JournalService } from './journals/journal.service';
-import { DataService } from './shared/data.service';
+import { DataService } from './journals/data.service';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ShortenPipe } from '../shorten.pipe';

@@ -1,16 +1,16 @@
 <div class="container">
 <div class = "row" >
     <div class = "col-xs-12">
-        <h1>{{ journal.date }}</h1>    
+        <h1 *ngIf = "journal.date">{{ journal.date }}</h1>     
 <div class = row>
-    <p>{{ journal.entry }}</p>
+     <p *ngIf = "journal.entry">{{ journal.entry }}</p> 
 </div>
 <div class = "btn-group">
     <div class="col-5">
         <button mat-raised-button color = "accent" (click) = "onEditJournal()">Edit</button>
       </div>
       <div class="col-5">
-        <button mat-raised-button color = "warn" (click) = "onDeleteJournal()">Delete</button>
+        <button mat-raised-button color = "warn" class = "button" (click) = "onDeleteJournal()">Delete</button>
       </div> 
 </div>
 </div>

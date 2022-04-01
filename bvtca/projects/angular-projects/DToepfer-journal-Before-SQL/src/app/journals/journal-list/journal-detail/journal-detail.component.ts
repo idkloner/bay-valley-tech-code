@@ -9,8 +9,9 @@ import { JournalService } from '../../journal.service';
   styleUrls: ['./journal-detail.component.css']
 })
 export class JournalDetailComponent implements OnInit {
-  @Input() journal!: Journal;
-  @Input() index!: number;
+ //@Input() journal!: Journal;
+  //@Input() index!: number;
+  journal!: Journal;
 
   id!: number;
   editedItemIndex!: number;
@@ -21,32 +22,32 @@ export class JournalDetailComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(){
+    this.getRouteID();
+  
     
-       this.route.params
-         .subscribe(
-           (params: Params) => {
-            this.id = + params['id'];
-            //this.journalService.getJournal(this.id);
-            //console.log('journal', this.journal);
-             this.journalService.getJournal(this.id).then(res => {
-               this.journal = res;
-               console.log('journal', res);
-               
-
-            });
-            
+          
        }
-      );
+  
+
+  getRouteID(){
+    this.route.params.subscribe((params: Params) => 
+    {this.id = + params['id'];
+      this.getJournal(this.id);
+  }); 
+
+  }
+
+  getJournal(id: number){
+    this.journal = this.journalService.selectJournal(this.id);
+    console.log(this.journal);
   }
 
   onEditJournal() {
     this.router.navigate(['edit'], {relativeTo: this.route});
-    
-    //this.router.navigate(['../', this.id, 'edit'], {relativeTo: this.route});   //This could work as well, just more complicated.
-    
+
   }
   onDeleteJournal(){
-    this.journalService.deleteJournal(this.editedItemIndex);
+    this.journalService.deleteJournal(this.id);
     this.router.navigate(['journal']);
    
 

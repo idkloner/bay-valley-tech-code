@@ -5,9 +5,10 @@ const app = express();
 const port = 3000;
 const crypto = require('crypto');
 
-//app.use(express.json());
+
 app.use(express.json(), function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.header("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
@@ -114,17 +115,11 @@ app.get('/:id', async (req, res) => {
 
 app.post('/new',  async (req, res) => {
   
-  const  { entry } = req.body;
-  console.log("req.body = " + req.body);
-  
   //const authHeader = req.headers.authorization;
   //const token = authHeader.split(' ')[1];
 
-  
-
   await global.db.query('Insert into entrys (date, entry) values (date(now()), ?)', [
     req.body.entry
-  
   ]);
 
   res.send('I am posting data!')
@@ -132,33 +127,24 @@ app.post('/new',  async (req, res) => {
 
 
 app.put('/edit',  async (req, res) => {
-  
-  const  { id, entry } = req.body;
-  //console.log("req.body = " + req.body.new_note + req.body.old);
-  
-  const authHeader = req.headers.authorization;
 
+  //const authHeader = req.headers.authorization;
 
   await global.db.query(`update entrys set entry = (?) where id = (?)`, [
     req.body.entry,
     req.body.id
-
-  
   ]);
 
   res.send('I am posting data!')
 });
 
-app.delete('/delete',  async (req, res) => {
-  
-  const  { id } = req.body;
-  console.log("req.body = " + req.body.note);
-  
+
+
+app.delete('/:id',  async (req, res) => {
   //const authHeader = req.headers.authorization;
 
   await global.db.query(`delete from entrys where id = (?)`, [
     req.body.id
-
   ]);
 
   res.send('I am posting data!')

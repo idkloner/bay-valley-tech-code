@@ -4,7 +4,7 @@ import { Journal } from '../journal.model';
 import { JournalService } from 'src/app/journals/journal.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Subscription } from 'rxjs';
-import { DataService } from 'src/app/shared/data.service';
+import { DataService } from 'src/app/journals/data.service';
 
 
 @Component({
@@ -13,8 +13,8 @@ import { DataService } from 'src/app/shared/data.service';
   styleUrls: ['./journal-list.component.css']
 })
 export class JournalListComponent implements OnInit { 
-  journals: Journal[] = [];
-  
+  allUserJournals: Journal[] = [];
+  index!: number;
   
   subscription!: Subscription;
   
@@ -33,19 +33,33 @@ export class JournalListComponent implements OnInit {
   //      }
   //  )
 
-     
-      this.journalService.getJournals().then(res => {
-            this.journals = res;
-            console.log('journals', res);
-            //return this.journals;
-          });
-
-
-     
-
+     this.getAllUserJournals();
+     //this.setCurrentUserJournals();
 
 
     }
+
+
+    getAllUserJournals(){
+      this.journalService.getJournals()
+      .subscribe(journals => {
+        this.allUserJournals = journals,
+      //console.log("getAllUserJournals", this.allUserJournals),
+        this.setCurrentUserJournals(this.allUserJournals)})
+
+        //console.log("get", this.allUserJournals)
+        
+
+    }
+
+    setCurrentUserJournals(allUserJournals){
+      //console.log("setCurrentUserJournals", allUserJournals);
+      //this will set our array of journals inside of our service.
+      this.journalService.setCurrentUserJournals(allUserJournals); 
+      
+    }
+
+
 
 
     

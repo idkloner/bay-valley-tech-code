@@ -16,6 +16,7 @@ export class JournalEditComponent implements OnInit {
   editMode = false;
   editedItemIndex!: number;
   journalForm!: FormGroup;
+  journalToEdit!: Journal;
   
  
   constructor(private journalService: JournalService,
@@ -23,26 +24,32 @@ export class JournalEditComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-     this.route.params
-     .subscribe(
-       (params: Params) => {
-        this.id = + params['id'];
-         this.editMode = params['id'] != null;
-         this.initForm();
-       }
-     );
+     this.getRouteId();
+  }
+
+
+  getRouteId(){
+    this.route.params.subscribe((params: Params) => 
+    {
+      this.id = + params['id'];
+      this.editMode = params['id'] != null;
+      this.initForm();
+      //this.getJournal(this.id);
+  }); 
+
   }
 
   onSubmit(){
-
-    if( this.editMode){
+    if( this.editMode ){
       this.journalService.updateJournal(this.id, this.journalForm.value);
+      console.log(this.id, this.journalForm.value)
     } else {
       this.journalService.addJournal(this.journalForm.value);    
     }
     console.log(this.journalForm);
     this.journalForm.reset();
-    this.onCancel();
+    setTimeout(() =>
+    this.onCancel(), 500);
     
 
   }
@@ -51,33 +58,30 @@ export class JournalEditComponent implements OnInit {
     this.router.navigate(['../'], {relativeTo: this.route});
   }
 
+
+
+
   private initForm(){
     let journalEntry = "";
     let journalDate = "";
    
     if (this.editMode){
-      const journal = this.journalService.getJournal(this.id);
-
-
-      // this.journalService.getJournal(this.id).then(res => {
-      //   this.journal = res;
-      //   console.log(res);
-      // });
-      console.log(this.journal);
+      //const journal = this.journalService.setCurrentUserJournals();
+      this.journal = this.journalService.selectJournal(this.id);
       journalEntry = this.journal.entry;
-
-
-
-      console.log(journalDate);
-    }
-    journalDate = this.getCurrentDate();
-    this.journalForm = new FormGroup({
-      'entry': new FormControl(journalEntry, Validators.required),
-      'date': new FormControl(journalDate, Validators.required)
-    });
+    } 
+      journalDate = this.getCurrentDate();
+      this.journalForm = new FormGroup({
+        'entry': new FormControl(journalEntry, Validators.required),
+        'date': new FormControl(journalDate, Validators.required)
+      
+      });
+    
   }
  
 
+
+  
 
   getCurrentDate(){
     let dateObj = new Date();
@@ -86,7 +90,7 @@ export class JournalEditComponent implements OnInit {
             let year = dateObj.getFullYear();
             let output = month + '/' + day + '/' + year;
             return output;
-  }  //this code is from geeks for geeks https://www.geeksforgeeks.org/how-to-get-the-current-date-in-javascript/
+  }  //this code getCurrentDate() is from geeks for geeks https://www.geeksforgeeks.org/how-to-get-the-current-date-in-javascript/
 
 
   
