@@ -4,6 +4,7 @@ const mysql = require('mysql2/promise');
 const app = express();
 const port = 3000;
 const crypto = require('crypto');
+const { stringify } = require('querystring');
 
 
 app.use(express.json(), function(req, res, next) {
@@ -34,6 +35,7 @@ const authenticateJWT = (req, res, next) => {
   }
 };
 
+
 app.use(async (req, res, next) => {   //match login
   global.db = await mysql.createConnection({ 
     host: '127.0.0.1', 
@@ -46,6 +48,28 @@ app.use(async (req, res, next) => {   //match login
   global.db.query(`SET time_zone = '-8:00'`);
   await next();
 });
+
+
+//public endpoints
+app.post('/register',  async (req, res) => {
+  
+  const { email, password } = req.body;
+  console.log(req.body)
+
+  passwordHash = crypto.createHash('sha256')
+    .update(password)
+    .digest('hex');
+  console.log(passwordHash);
+
+  await global.db.query(`INSERT INTO users (email, password) VALUES (?, ?)`, [
+    req.body.email,
+    passwordHash
+  ]);
+
+  res.send('I am posting data!')
+});
+
+
 
 
 app.post('/login', async (req, res) => {
@@ -63,17 +87,22 @@ app.post('/login', async (req, res) => {
   const [[user]] = await global.db.query('SELECT * FROM users WHERE email = ? AND password = ?', 
   [email, passwordHash])
 
+
   if (user) {
     const token = jsonwebtoken.sign({ id: user.id, email: user.email }, JWT_KEY);
-  
     res.json({
       jwt: token
+      
     });
   } else {
     res.send('Username or password incorrect');
   }
 });
 
+
+
+
+//these below require authentication
 
  app.get('/',  async (req, res) => {
 
@@ -122,7 +151,17 @@ app.post('/new',  async (req, res) => {
     req.body.entry
   ]);
 
+  global.db.query( 
+    'set @row_num = -1;'
+    ); 
+    
+   global.db.query( 
+     'update angular_final.entrys set id = (@row_num:=@row_num +1) order by date desc;'
+     );
+  
+
   res.send('I am posting data!')
+
 //need to have command or something that will reload the page and add the id
 
 });
@@ -151,30 +190,19 @@ app.delete('/:id',  async (req, res) => {
   [
     req.params.id     //using params not body will now delete the journal, still has promise error and doesnt reload page. 
   ]);
+  global.db.query( 
+    'set @row_num = -1;'
+    ); 
+    
+   global.db.query( 
+     'update angular_final.entrys set id = (@row_num:=@row_num +1) order by date desc;'
+     );
 
   res.send('I am posting data!')
 });
 
 
-// app.post('/new_user',  async (req, res) => {
-  
-//   const  { name, email, password } = req.body;
-//   console.log(req.body)
-//   //console.log(make, color);
 
-//   passwordHash = crypto.createHash('sha256')
-//     .update(password)
-//     .digest('hex');
-//   console.log(passwordHash);
-
-//   await global.db.query(`INSERT INTO users (name, email, password) VALUES (?, ?, ?)`, [
-//     req.body.name,
-//     req.body.email, 
-//     passwordHash
-//   ]);
-
-//   res.send('I am posting data!')
-// });
 
 
 
