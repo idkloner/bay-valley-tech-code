@@ -49,14 +49,19 @@ export class JournalEditComponent implements OnInit {
     }
     //console.log(this.journalForm.value);
     this.journalForm.reset();
-    //setTimeout(() =>
-    this.onCancel()//, 500);
+    
+    this.onCancel()
+
+    
     
 
   }
 
   onCancel(){
-    this.router.navigate(['../'], {relativeTo: this.route});
+    //this.router.navigate(['../'], {relativeTo: this.route});  //not liking this, cause when reloading the page on any path other than main, errors out.
+    this.router.navigate(['journal']);  //goes back to main rather than just one path back
+    setTimeout(() =>  window.location.reload(), 10);
+   
   }
 
 

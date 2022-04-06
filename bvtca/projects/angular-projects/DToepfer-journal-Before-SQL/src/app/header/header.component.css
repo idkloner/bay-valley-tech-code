@@ -6,12 +6,12 @@ button {
     }
     
 .row{
-        border-color: 40,0,0,0;
-        border-style: double;
-        border-width: 20px;
-        margin: 10px;
-        background-color: rgb(204,198,194,20);
-        min-width:300px;
+    border-color: 40,0,0,0;
+    border-style: double;
+    border-width: 20px;
+    margin: 10px;
+    background-color: rgb(204,198,194,20);
+    min-width:300px;
     } 
 
 #container{

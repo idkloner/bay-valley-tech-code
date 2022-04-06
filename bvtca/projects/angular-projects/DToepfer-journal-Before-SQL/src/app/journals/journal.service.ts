@@ -24,6 +24,8 @@ export class JournalService{
 
   private currentUserJournals: Journal[] = [];
 
+  jwtKey: string = 'user_jwt'
+
   constructor( private http: HttpClient) { }
 
 
@@ -72,15 +74,29 @@ export class JournalService{
   }
 
 
-  updateJournal( id: number, newJournal: Journal) {
+  updateJournal( id: number, newJournal: Journal): Promise<any> {
     //return this.request('PUT', `${API_URL}/${id}/edit`, newJournal);
     console.log(id, newJournal);
-    return this.http.put(`${API_URL}/${id}/edit`, newJournal);// this way provides no error, however the entry is not changed
+    return this.http.put(`${API_URL}/${id}/edit`, newJournal).toPromise();// this way provides no error, however the entry is not changed
   
   }
 
 
   logIn(logInfo: string){
+  }
+
+
+  register(body: {
+    email: string; 
+    password: string;}){
+      this.http
+      .post(`${API_URL}/register`, body)
+      .toPromise()
+      .then((res: string) => {
+        console.log('jwt', res)
+        localStorage.setItem(this.jwtKey, res)
+      });
+
   }
 
  

@@ -11,6 +11,8 @@ import { JournalService } from '../journal.service';
 export class JournalStartComponent implements OnInit{
   loginBool = false;
   loginForm!: FormGroup;
+  email: string = '';
+  password: string = '';
 
   
   constructor(private journalService: JournalService) {
@@ -27,12 +29,20 @@ export class JournalStartComponent implements OnInit{
 
   }
 
+  onRegister(){
+    this.journalService.register({
+      email: this.email,
+      password: this.password
+    });
+  }
+
+
   private initForm(){
-    let LogInUsername = "";
+    let LogInEmail = "";
     let LogInPassword = "";
 
     this.loginForm = new FormGroup({
-      'username': new FormControl(LogInUsername, Validators.required),
+      'email': new FormControl(LogInEmail, Validators.required),
       'password': new FormControl(LogInPassword, Validators.required)
     })
   }

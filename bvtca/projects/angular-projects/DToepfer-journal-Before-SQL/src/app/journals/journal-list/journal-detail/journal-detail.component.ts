@@ -49,6 +49,8 @@ export class JournalDetailComponent implements OnInit {
   onDeleteJournal(){
     this.journalService.deleteJournal(this.id);
     this.router.navigate(['journal']);
+    setTimeout(() =>  window.location.reload(), 10);
+    
    
 
     
