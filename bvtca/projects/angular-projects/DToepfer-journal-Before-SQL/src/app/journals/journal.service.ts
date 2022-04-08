@@ -82,14 +82,23 @@ export class JournalService{
   }
 
 
-  logIn(logInfo: string){
+  logIn(logInfo){
+    this.http
+    .post(`${API_URL}/login`, logInfo)
+    .toPromise()
+    .then(res => {
+      localStorage.setItem(this.jwtKey, <string>res)
+      console.log('jwt', res)
+    });
+
   }
 
 
   register(body: {
     email: string; 
     password: string;}){
-      this.http
+      console.log(body)
+      return this.http
       .post(`${API_URL}/register`, body)
       .toPromise()
       .then((res: string) => {

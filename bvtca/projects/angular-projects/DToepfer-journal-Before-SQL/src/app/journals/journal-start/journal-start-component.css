@@ -1,4 +1,13 @@
 .container{
     display: flex;
     align-self: center;
+    background-color: black;
 }
+
+textarea{
+    border-color: black;
+    border-radius: 5px;
+    color: black;
+}
+
+

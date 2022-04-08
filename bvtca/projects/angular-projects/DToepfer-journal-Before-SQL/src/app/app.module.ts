@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UsersComponent } from './login/users/users.component';
-import { HeaderComponent } from './header/header.component';
 import { JournalListComponent } from './journals/journal-list/journal-list.component';
 import { JournalEditComponent } from './journals/journal-edit/journal-edit.component';
 
@@ -38,7 +37,6 @@ import { ShortenDatePipe } from 'src/shorten-date.pipe';
     AppComponent,
     LoginComponent,
     UsersComponent,
-    HeaderComponent,
     JournalListComponent,
     JournalEditComponent,
     JournalItemComponent,

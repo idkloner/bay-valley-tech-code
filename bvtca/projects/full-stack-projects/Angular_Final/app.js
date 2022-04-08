@@ -74,9 +74,7 @@ app.post('/register',  async (req, res) => {
 
 app.post('/login', async (req, res) => {
   console.log('login.req.body', req.body);
-  // console.log(req.body);
-  
-  
+ 
   const  { email, password } = req.body;
 
   passwordHash = crypto.createHash('sha256')
@@ -89,6 +87,7 @@ app.post('/login', async (req, res) => {
 
 
   if (user) {
+    console.log('yay');
     const token = jsonwebtoken.sign({ id: user.id, email: user.email }, JWT_KEY);
     res.json({
       jwt: token
@@ -96,6 +95,7 @@ app.post('/login', async (req, res) => {
     });
   } else {
     res.send('Username or password incorrect');
+    console.log("damn")
   }
 });
 
@@ -104,9 +104,9 @@ app.post('/login', async (req, res) => {
 
 //these below require authentication
 
- app.get('/',  async (req, res) => {
+ app.get('/', async (req, res) => {
 
-   //const authHeader = req.headers.authorization;
+   const authHeader = req.headers.authorization;
   
    //console.log(req);
     
@@ -142,9 +142,9 @@ app.get('/:id', async (req, res) => {
 });
 
 
-app.post('/new',  async (req, res) => {
+app.post('/new', async (req, res) => {
   
-  //const authHeader = req.headers.authorization;
+  const authHeader = req.headers.authorization;
   //const token = authHeader.split(' ')[1];
 
   await global.db.query('Insert into entrys (date, entry) values (now(), ?)', [
@@ -162,7 +162,7 @@ app.post('/new',  async (req, res) => {
 
   res.send('I am posting data!')
 
-//need to have command or something that will reload the page and add the id
+
 
 });
 

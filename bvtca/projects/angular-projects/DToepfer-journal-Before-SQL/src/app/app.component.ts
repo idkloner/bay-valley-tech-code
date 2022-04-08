@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { JournalService } from './journals/journal.service';
 
 @Component({
@@ -6,9 +6,20 @@ import { JournalService } from './journals/journal.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent{
+  // didLogin: boolean;
+  
 
   constructor(private journalService: JournalService){}
   title = 'DToepfer-journal'; 
-  loginBool = false;
+
+
+
+  // loginHandler(login){
+  //   this.didLogin = login;
+  //   console.log(this.didLogin);
+ // }
+
+
+  
 }

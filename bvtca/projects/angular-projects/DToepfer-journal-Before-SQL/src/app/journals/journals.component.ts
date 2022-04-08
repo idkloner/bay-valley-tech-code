@@ -1,4 +1,7 @@
+import { getSupportedInputTypes } from '@angular/cdk/platform';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+
 import { Journal } from './journal.model';
 import { JournalService } from './journal.service';
 
@@ -11,17 +14,46 @@ import { JournalService } from './journal.service';
 export class JournalsComponent implements OnInit{ 
   selectedJournal!: Journal;
   journals!: Journal[];
+  id!: number;
 
-  constructor(private journalService: JournalService) { }
+
+  constructor(private journalService: JournalService,private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(){
-     this.journalService.journalSelected
-       .subscribe(
-         (journal: Journal) => {
-           this.selectedJournal = journal;
-           }
-       );
+    this.getRoute();
+    this.getJournal();
   } 
-  
+
+
+
+getRoute(){
+  this.route.params
+  .subscribe(
+    (params: Params) => {
+      this.id = +params['id'];
+    });
+}
+
+getJournal(){
+  this.journalService.journalSelected
+  .subscribe(
+    (journal: Journal) => {
+      this.selectedJournal = journal;
+      });
 
 }
+
+onNewJournal(){
+  this.router.navigate(['journal/new']);
+  
+}
+
+
+
+
+}
+
+
+
+

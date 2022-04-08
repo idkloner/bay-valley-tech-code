@@ -28,32 +28,25 @@ export class JournalEditComponent implements OnInit {
      this.getRouteId();
   }
 
-
   getRouteId(){
     this.route.params.subscribe((params: Params) => 
     {
       this.id = + params['id'];
       this.editMode = params['id'] != null;
       this.initForm();
-      //this.getJournal(this.id);
   }); 
-
   }
 
   onSubmit(){
     if( this.editMode ){
       this.journalService.updateJournal(this.id, this.journalForm.value);
-      //console.log(this.id, this.journalForm.value)
+     
     } else {
       this.journalService.addJournal(this.journalForm.value);    
     }
-    //console.log(this.journalForm.value);
     this.journalForm.reset();
     
-    this.onCancel()
-
-    
-    
+    this.onCancel();
 
   }
 
@@ -65,42 +58,20 @@ export class JournalEditComponent implements OnInit {
   }
 
 
-
-
   private initForm(){
     let journalEntry = "";
-    //let journalDate = "";
+ 
    
     if (this.editMode){
-      //const journal = this.journalService.setCurrentUserJournals();
       this.journal = this.journalService.selectJournal(this.id);
       journalEntry = this.journal.entry;
     } 
-      //journalDate = this.getCurrentDate();
       this.journalForm = new FormGroup({
         'entry': new FormControl(journalEntry, Validators.required),
-        //'date': new FormControl(journalDate, Validators.required)     
       
       });
     
   }
  
-
-
-  
-
-  getCurrentDate(){
-    let dateObj = new Date();
-            let month = String(dateObj.getMonth() + 1).padStart(2, '0');
-            let day = String(dateObj.getDate()).padStart(2, '0');
-            let year = dateObj.getFullYear();
-            let output = month + '/' + day + '/' + year;
-            return output;
-  }  //this code getCurrentDate() is from geeks for geeks https://www.geeksforgeeks.org/how-to-get-the-current-date-in-javascript/
-
-
-  
-
-  
 
 }
