@@ -2,6 +2,8 @@
     
     border-color: black;
     border-style: double;   
+    margin: 10px;
+    background-color: rgb(220, 219, 225);
 }
 
 .journal-input{

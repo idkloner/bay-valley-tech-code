@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable} from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
@@ -37,7 +37,7 @@ export class JournalService{
       responseType: 'json',
       observe: 'body',
       headers: {
- 
+        'Authorization': this.jwtKey,
       }
     });
     return new Promise((resolve, reject) => {
@@ -53,6 +53,7 @@ export class JournalService{
 
 
   getJournals(): Observable<Journal[]>{
+    console.log(this.jwtKey);
      return this.http
      .get<Journal[]>(`${API_URL}/`)
   }
@@ -83,12 +84,16 @@ export class JournalService{
 
 
   logIn(logInfo){
+    console.log(logInfo);
     this.http
     .post(`${API_URL}/login`, logInfo)
     .toPromise()
     .then(res => {
+      this.jwtKey =  <string>res;
       localStorage.setItem(this.jwtKey, <string>res)
-      console.log('jwt', res)
+      console.log('jwt', res);
+      console.log(this.jwtKey);
+      
     });
 
   }
@@ -102,8 +107,9 @@ export class JournalService{
       .post(`${API_URL}/register`, body)
       .toPromise()
       .then((res: string) => {
-        console.log('jwt', res)
-        localStorage.setItem(this.jwtKey, res)
+        window.alert('You are registered.');    //not working
+        // console.log('jwt', res)
+        // localStorage.setItem(this.jwtKey, res)
       });
 
   }

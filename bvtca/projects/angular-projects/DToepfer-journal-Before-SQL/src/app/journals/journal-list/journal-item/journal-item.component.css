@@ -1,6 +1,7 @@
 .container{
     max-width:302px;
     padding: 0px;
+   
 
 }
 .row{
@@ -11,6 +12,7 @@
     padding: 20px; */
     display: flex;
     align-items: center;
+
 }
 
 
@@ -21,6 +23,7 @@
     font-size: 20px;
     max-width: 300px;
     height:auto;
+
     
 }
 
@@ -30,6 +33,7 @@
 
 .list-group-item{
     border: none;
+    background-color: rgb(214, 213, 220);
 }
 
 #text{

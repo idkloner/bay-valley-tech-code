@@ -9,5 +9,8 @@
 
 .container{
     border: solid;
-    border-color: balck;
+    border-color: black;
+    margin: 10px;
+    background-color: rgb(220, 219, 225);
+   
 }

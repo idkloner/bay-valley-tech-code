@@ -15,11 +15,5 @@ export class AppComponent{
 
 
 
-  // loginHandler(login){
-  //   this.didLogin = login;
-  //   console.log(this.didLogin);
- // }
-
-
   
 }

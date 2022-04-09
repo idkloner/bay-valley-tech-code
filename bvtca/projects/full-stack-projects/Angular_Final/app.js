@@ -5,12 +5,13 @@ const app = express();
 const port = 3000;
 const crypto = require('crypto');
 const { stringify } = require('querystring');
+const { convertCompilerOptionsFromJson } = require('typescript');
 
 
 app.use(express.json(), function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:4200");
   res.header("Access-Control-Allow-Methods", "POST,GET,PUT,DELETE");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   next();
 });
 
@@ -21,16 +22,18 @@ const authenticateJWT = (req, res, next) => {
 
   if (authHeader) {
     const token = authHeader.split(' ')[1];
+    console.log("line 25 token:", token)
 
     jsonwebtoken.verify(token, JWT_KEY, (err, user) => {
       if (err) {
+        console.log('error mtf');
         return res.sendStatus(403);
       }
-
       req.user = user;
       next();
     });
   } else {
+    console.log('error mofo');
     res.sendStatus(401);
   }
 };
@@ -62,7 +65,7 @@ app.post('/register',  async (req, res) => {
   console.log(passwordHash);
 
   await global.db.query(`INSERT INTO users (email, password) VALUES (?, ?)`, [
-    req.body.email,
+    email,
     passwordHash
   ]);
 
@@ -78,7 +81,7 @@ app.post('/login', async (req, res) => {
   const  { email, password } = req.body;
 
   passwordHash = crypto.createHash('sha256')
-    .update(req.body.password)
+    .update(password)
     .digest('hex');
   console.log(passwordHash);
   
@@ -87,16 +90,16 @@ app.post('/login', async (req, res) => {
 
 
   if (user) {
-    console.log('yay');
-    const token = jsonwebtoken.sign({ id: user.id, email: user.email }, JWT_KEY);
+    console.log('yay, logged in');
+    const token = jsonwebtoken.sign({email: user.email, password: user.password }, JWT_KEY);
     res.json({
-      jwt: token
-      
+      jwt: token //assigns the token       
     });
   } else {
     res.send('Username or password incorrect');
     console.log("damn")
   }
+  return user;
 });
 
 
@@ -104,12 +107,9 @@ app.post('/login', async (req, res) => {
 
 //these below require authentication
 
- app.get('/', async (req, res) => {
+ app.get('/', authenticateJWT, async (req, res) => {
 
-   const authHeader = req.headers.authorization;
-  
-   //console.log(req);
-    
+
    global.db.query( 
      'set @row_num = -1;'
      ); 
@@ -118,12 +118,9 @@ app.post('/login', async (req, res) => {
       'update angular_final.entrys set id = (@row_num:=@row_num +1) order by date desc;'
       );
      const[data] = await global.db.query(
-      `SELECT id, date, entry FROM entrys order by date desc`
-     );
+      `SELECT id, date, entry FROM entrys order by date desc`);
    res.json(data);
   
-
-   //return data;
    
  });
 
@@ -137,18 +134,16 @@ app.get('/:id', async (req, res) => {
     );
     res.json(data);
     
-    //return data;
   
 });
 
 
-app.post('/new', async (req, res) => {
+app.post('/new', authenticateJWT ,async (req, res) => {
   
-  const authHeader = req.headers.authorization;
-  //const token = authHeader.split(' ')[1];
 
-  await global.db.query('Insert into entrys (date, entry) values (now(), ?)', [
-    req.body.entry
+  await global.db.query('Insert into entrys (date, entry, user_id) values (now(), ?, ?)', [
+    req.body.entry,
+    authHeader
   ]);
 
   global.db.query( 
@@ -169,7 +164,6 @@ app.post('/new', async (req, res) => {
 
 app.put('/:id/edit',  async (req, res) => {
 
-  //const authHeader = req.headers.authorization;
   console.log("id",req.params.id)
 
   await global.db.query(`update entrys set date = now(), entry = (?) where id = (?)`, 

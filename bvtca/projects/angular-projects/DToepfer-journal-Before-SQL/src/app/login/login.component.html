@@ -1,1 +1,76 @@
-<p>login works!</p>
+<div class="container" 
+     style = 
+     "display:flex; 
+     justify-content:center;
+     
+    ">
+    <div class="row"
+    style = "
+    border-color: black;
+    border-style: groove;">
+        <div class="col"
+        style = 
+        "background-color:rgb(205, 199, 196);">
+            <form [formGroup] = "loginForm" >
+                <div class="formGroup">
+
+                        <mat-label> Login or Register </mat-label>
+
+                        <br>
+                        <br>
+
+                        <textarea
+                        matInput 
+                        placeholder = "Email"
+                        type = "mat-form-field"
+                        id = "email"
+                        class = "email-input form-control"
+                        formControlName = "email"
+                        style = 
+                        "border-color: black;
+                        border-style: groove;"
+                        ></textarea>
+
+                        <br>
+                        
+                        <textarea
+                        matInput 
+                        placeholder = "Password"
+                        type = "mat-form-field"
+                        id = "password"
+                        class = "password-input form-control"
+                        formControlName = "password"
+                        style = 
+                        "border-color: black;
+                        border-style: groove;"
+                        ></textarea>      
+
+                </div>
+    <div class="row" >
+        <div class="col" >
+            <button
+            style = "margin: 15px;"
+                type = "submit"
+                class = "button"
+                mat-raised-button
+                color = "primary"
+                (click) = "onLogin()">
+                Login
+            </button>
+        </div>
+        <div class="col">
+            <button 
+            style = "margin: 15px;"
+            type = "button"
+            class = "button"
+            mat-raised-button
+            color = "primary"
+           (click) = "onRegister()">
+            Register
+        </button>
+        </div>
+    </div>            
+            </form>
+        </div>
+    </div>
+</div>
