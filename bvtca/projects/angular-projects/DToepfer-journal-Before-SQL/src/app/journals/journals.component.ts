@@ -49,6 +49,10 @@ onNewJournal(){
   
 }
 
+onLogout(){
+  this.journalService.logout();
+}
+
 
 
 

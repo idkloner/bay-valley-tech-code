@@ -16,6 +16,10 @@ app.use(express.json(), function(req, res, next) {
 });
 
 const JWT_KEY = "THIS_IS_TOP_SECRET";
+const current_user_email = '';
+const current_user_passwordHash = '';
+const current_user_id = '';
+
 
 const authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -26,14 +30,12 @@ const authenticateJWT = (req, res, next) => {
 
     jsonwebtoken.verify(token, JWT_KEY, (err, user) => {
       if (err) {
-        console.log('error mtf');
         return res.sendStatus(403);
       }
       req.user = user;
       next();
     });
   } else {
-    console.log('error mofo');
     res.sendStatus(401);
   }
 };
@@ -57,12 +59,14 @@ app.use(async (req, res, next) => {   //match login
 app.post('/register',  async (req, res) => {
   
   const { email, password } = req.body;
-  console.log(req.body)
+
 
   passwordHash = crypto.createHash('sha256')
     .update(password)
     .digest('hex');
-  console.log(passwordHash);
+
+
+  
 
   await global.db.query(`INSERT INTO users (email, password) VALUES (?, ?)`, [
     email,
@@ -76,30 +80,35 @@ app.post('/register',  async (req, res) => {
 
 
 app.post('/login', async (req, res) => {
-  console.log('login.req.body', req.body);
- 
   const  { email, password } = req.body;
 
+  this.user_email = email;
+  console.log("email:", this.user_email)
+  
   passwordHash = crypto.createHash('sha256')
     .update(password)
     .digest('hex');
-  console.log(passwordHash);
+ 
+  this.current_user_passwordHash = this.passwordHash;
   
   const [[user]] = await global.db.query('SELECT * FROM users WHERE email = ? AND password = ?', 
   [email, passwordHash])
-
+  console.log("user", user);
+  this.current_user_id = user.id;
+  console.log("id", this.current_user_id)
 
   if (user) {
-    console.log('yay, logged in');
-    const token = jsonwebtoken.sign({email: user.email, password: user.password }, JWT_KEY);
+    //console.log('yay, logged in');
+    const token = jsonwebtoken.sign({user: user.id, email: user.email, password: user.password }, JWT_KEY);
     res.json({
-      jwt: token //assigns the token       
-    });
+      jwt: token, //assigns the token    
+      return: user, 
+    })
   } else {
     res.send('Username or password incorrect');
     console.log("damn")
   }
-  return user;
+
 });
 
 
@@ -110,15 +119,19 @@ app.post('/login', async (req, res) => {
  app.get('/', authenticateJWT, async (req, res) => {
 
 
-   global.db.query( 
+   await global.db.query( 
      'set @row_num = -1;'
      ); 
      
     global.db.query( 
-      'update angular_final.entrys set id = (@row_num:=@row_num +1) order by date desc;'
+      'update entrys set id = (@row_num:=@row_num +1) where user_id = ? order by date desc;',[
+        this.current_user_id
+       ]
       );
      const[data] = await global.db.query(
-      `SELECT id, date, entry FROM entrys order by date desc`);
+      `SELECT id, date, entry FROM entrys where user_id = ? order by date desc `, [
+       this.current_user_id
+      ]);
    res.json(data);
   
    
@@ -127,7 +140,7 @@ app.post('/login', async (req, res) => {
 
 
 
-app.get('/:id', async (req, res) => {
+app.get('/:id', authenticateJWT, async (req, res) => {
   const [data] = await global.db.query(
     `SELECT * FROM entrys where id = ?`,
     [req.params.id]
@@ -138,12 +151,15 @@ app.get('/:id', async (req, res) => {
 });
 
 
-app.post('/new', authenticateJWT ,async (req, res) => {
+app.post('/new', async (req, res) => {
+
+   const user = await global.db.query('SELECT id FROM users WHERE email = ? AND password = ?', 
+   [this.current_user_email, this.current_user_passwordHash]);
   
 
-  await global.db.query('Insert into entrys (date, entry, user_id) values (now(), ?, ?)', [
+   global.db.query('Insert into entrys (date, entry, user_id) values (now(), ?, ?)', [
     req.body.entry,
-    authHeader
+    this.current_user_id
   ]);
 
   global.db.query( 
@@ -155,7 +171,7 @@ app.post('/new', authenticateJWT ,async (req, res) => {
      );
   
 
-  res.send('I am posting data!')
+  //res.send('I am posting data!')  //was causing a promise error
 
 
 
@@ -164,25 +180,24 @@ app.post('/new', authenticateJWT ,async (req, res) => {
 
 app.put('/:id/edit',  async (req, res) => {
 
-  console.log("id",req.params.id)
-
+  //console.log("id",req.params.id)
   await global.db.query(`update entrys set date = now(), entry = (?) where id = (?)`, 
   [
     req.body.entry,
     req.params.id
   ]);
 
-  res.send('I am posting data!')
+  //res.send('I am posting data!')
 });
 
 
 
-app.delete('/:id',  async (req, res) => {
-  //const authHeader = req.headers.authorization;
+app.delete('/:id', async (req, res) => {
 
-  await global.db.query(`delete from entrys where id = (?)`, 
+  await global.db.query(`delete from entrys where id = ? and user_id = ?`, 
   [
-    req.params.id     //using params not body will now delete the journal, still has promise error and doesnt reload page. 
+    req.params.id,     //using params not .body will now delete the journal, still has promise error and doesnt reload page. 
+    this.current_user_id
   ]);
   global.db.query( 
     'set @row_num = -1;'
@@ -192,7 +207,7 @@ app.delete('/:id',  async (req, res) => {
      'update angular_final.entrys set id = (@row_num:=@row_num +1) order by date desc;'
      );
 
-  res.send('I am posting data!')
+  //res.send('I am posting data!')
 });
 
 

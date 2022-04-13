@@ -8,8 +8,7 @@ import { Journal } from 'src/app/journals/journal.model'
 
 import { API_URL } from 'src/environments/environment';
 
-//import { journals } from 'src/app/mock.journal'
-import { HttpHandler } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 
 
@@ -19,14 +18,16 @@ import { HttpHandler } from '@angular/common/http';
 
 
 export class JournalService{
-  journalsChanged = new Subject<Journal[]>();
   journalSelected = new EventEmitter<Journal>();
 
   private currentUserJournals: Journal[] = [];
 
-  jwtKey: string = 'user_jwt'
+  jwtKey: any = 'user_jwt'
+  user_id: any;
 
-  constructor( private http: HttpClient) { }
+
+  constructor( private http: HttpClient,
+    private router: Router) { }
 
 
 
@@ -53,9 +54,10 @@ export class JournalService{
 
 
   getJournals(): Observable<Journal[]>{
+    this.jwtKey = localStorage.getItem("jwtKey");
     console.log(this.jwtKey);
-     return this.http
-     .get<Journal[]>(`${API_URL}/`)
+     return this.http.get<Journal[]>(`${API_URL}/`,
+     { headers: { Authorization: `Bearer ${this.jwtKey}` } });
   }
 
 
@@ -65,21 +67,25 @@ export class JournalService{
 
 
   addJournal(journal: Journal) {
-    return this.request('POST', `${API_URL}/new`, journal);
+    return this.request('POST', `${API_URL}/new`, journal)
+   
   }
 
 
   deleteJournal(id:number): Promise<any>{
-    //return this.request('DELETE', `${API_URL}/${id}`, id); 
     return this.http.delete(`${API_URL}/${id}`).toPromise();  //doing it this way instead of ^ removes the CORS error, but still has the promise error
   }
 
 
   updateJournal( id: number, newJournal: Journal): Promise<any> {
-    //return this.request('PUT', `${API_URL}/${id}/edit`, newJournal);
     console.log(id, newJournal);
     return this.http.put(`${API_URL}/${id}/edit`, newJournal).toPromise();// this way provides no error, however the entry is not changed
-  
+    
+  }
+
+  journalUpdated(){
+    this.getJournals();
+    console.log('why');
   }
 
 
@@ -89,10 +95,15 @@ export class JournalService{
     .post(`${API_URL}/login`, logInfo)
     .toPromise()
     .then(res => {
-      this.jwtKey =  <string>res;
-      localStorage.setItem(this.jwtKey, <string>res)
-      console.log('jwt', res);
-      console.log(this.jwtKey);
+       this.jwtKey = JSON.stringify(res);
+      this.jwtKey = this.jwtKey.split(':')[1];
+      this.jwtKey = this.jwtKey.split('"')[1];
+      localStorage.setItem("jwtKey", this.jwtKey);
+      setTimeout(() =>  this.router.navigate(['journal']), 50);
+      
+      // console.log(typeof res);
+       //console.log(res);
+      // console.log(this.jwtKey);
       
     });
 
@@ -106,13 +117,19 @@ export class JournalService{
       return this.http
       .post(`${API_URL}/register`, body)
       .toPromise()
-      .then((res: string) => {
+      .then((res) => {
         window.alert('You are registered.');    //not working
-        // console.log('jwt', res)
-        // localStorage.setItem(this.jwtKey, res)
+        setTimeout(() =>  this.router.navigate(['journal']), 50);
       });
 
-  }
+
+
+   }
+
+   logout(){
+    localStorage.removeItem("jwtKey");
+    setTimeout(() =>  this.router.navigate(['login']), 50);
+  } 
 
  
 

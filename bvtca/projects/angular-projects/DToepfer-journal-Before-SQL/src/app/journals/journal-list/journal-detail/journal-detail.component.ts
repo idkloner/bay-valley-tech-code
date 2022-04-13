@@ -9,7 +9,7 @@ import { JournalService } from '../../journal.service';
   styleUrls: ['./journal-detail.component.css']
 })
 export class JournalDetailComponent implements OnInit {
- //@Input() journal!: Journal;
+  //@Input() journal!: Journal;
   //@Input() index!: number;
   journal!: Journal;
 
@@ -22,10 +22,7 @@ export class JournalDetailComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(){
-    this.getRouteID();
-  
-    
-          
+    this.getRouteID();    
        }
   
 
@@ -34,7 +31,6 @@ export class JournalDetailComponent implements OnInit {
     {this.id = + params['id'];
       this.getJournal(this.id);
   }); 
-
   }
 
   getJournal(id: number){
@@ -44,16 +40,13 @@ export class JournalDetailComponent implements OnInit {
 
   onEditJournal() {
     this.router.navigate(['edit'], {relativeTo: this.route});
-
   }
+
+
   onDeleteJournal(){
     this.journalService.deleteJournal(this.id);
     this.router.navigate(['journal']);
     setTimeout(() =>  window.location.reload(), 10);
-    
-   
-
-    
   }
 
 }

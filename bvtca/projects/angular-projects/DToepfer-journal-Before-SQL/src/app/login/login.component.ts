@@ -1,27 +1,23 @@
-import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { JournalService } from '../journals/journal.service';
-import { ActivatedRoute, Params, Router } from '@angular/router'
 
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  //styleUrls: ['./journal-start.component.css']
+  //styleUrls: ['./journal-start.component.css']    //for some reason breaks when using this, so had to use in-line style
  })
 export class LoginComponent implements OnInit{
-  @Output() loginBoolChanged: EventEmitter<boolean> = new EventEmitter();
-  @Input() loginBool: boolean = false;
+
   loginForm!: FormGroup;
   email: string = '';
   password: string = '';
  
 
   
-  constructor(private journalService: JournalService,
-    private route: ActivatedRoute,
-              private router: Router) {
+  constructor(private journalService: JournalService) {
   }
 
   ngOnInit(): void {
@@ -32,9 +28,8 @@ export class LoginComponent implements OnInit{
   onLogin(){
     this.journalService.logIn(this.loginForm.value);
     this.loginForm.reset();
-    setTimeout(() =>  this.router.navigate(['journal']), 50);
-    // this.loginBool = true;
-    // this.loginBoolChanged.emit(this.loginBool);
+    
+
     
 
   }
@@ -44,9 +39,6 @@ export class LoginComponent implements OnInit{
     this.journalService.register(this.loginForm.value);
     this.loginForm.reset();
     console.log("registered");
-
-    // this.loginBool = true;
-    // this.loginBoolChanged.emit(this.loginBool);
   }
 
 
@@ -55,7 +47,7 @@ export class LoginComponent implements OnInit{
     let LogInPassword = "";
 
     this.loginForm = new FormGroup({
-      'email': new FormControl(LogInEmail, Validators.required),//[Validators.required, Validators.email]),
+      'email': new FormControl(LogInEmail, [Validators.required, Validators.email]),
       'password': new FormControl(LogInPassword, Validators.required)
     })
   }
