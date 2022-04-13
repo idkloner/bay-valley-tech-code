@@ -12,7 +12,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: "full"},
     { path: 'login', component: LoginComponent},
     { path: 'journal', component: JournalsComponent, children: [
-        // { path: '', component: JournalStartComponent},
+ 
         { path: 'new', component: JournalEditComponent},
         { path: ':id', component: JournalDetailComponent},
         { path: ':id/edit', component: JournalEditComponent}
